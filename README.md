@@ -1,4 +1,4 @@
-# simple-django-project
+# Premier-League-23/24
 ## Installation
 
 ### Prerequisites
@@ -29,7 +29,8 @@ source envs/bin/activate
 
 #### 4. Clone git repository
 ```bash
-git clone "https://github.com/LuLuji04/PL23_24.git"
+git clone "https://github.com/Vatus118/Django-Pro.git"
+git checkout master
 ```
 
 #### 5. Install requirements
