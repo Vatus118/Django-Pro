@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="loginview" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+</head>
+
+<body>
+    <div class="content">
+        <div class="introduce">
+            <div class="introduce-content">
+                <p class="tips animate__animated animate__slideInLeft">
+                    欢迎来到'数据话英超'!
+                </p>
+                <p class="tips animate__animated animate__slideInLeft">
+                    一款基于Django对英超联赛数据统计与分析对比平台!
+                </p>
+                <p class="tips animate__animated animate__slideInLeft">
+                    请输入账号和密码进入平台！
+                </p>
+            </div>
+
+        </div>
+        <div class="form-wrapper animate__animated animate__slideInRight">
+            <div class="login-form">
+                <h1>Login</h1>
+                <span class="login-tips">
+                    登录英格兰超级联赛数据统计分析平台!
+                </span>
+                <div class="other-login">
+                    <img src="../static/img/matchlogo.png" alt="">
+                    <span>23/24英格兰超级联赛</span>
+                </div>
+                <div class="divider">
+                    <span class="line"></span>
+                    <span class="divider-text">请通过邮箱登录</span>
+                    <span class="line"></span>
+                </div>
+                <form class="formStyle" method="post" action="/login/">
+                    {% csrf_token %}
+                    <div class="input-wrapper">
+                        <span class="input-tips">账号</span>
+                        <input type="text" name="email" class="ipt" placeholder="mail@website.com">
+                    </div>
+                    <div class="input-wrapper">
+                        <span class="input-tips">密码</span>
+                        <input type="password" name="password" class="ipt" placeholder="Min. 8 character">
+                    </div>
+                    <div class="other-setting">
+                        <div class="rem-pwd">
+                            <input type="checkbox">
+                            <span>记住我</span>
+                        </div>
+                    </div>
+                    <button class="btn">登录</button>
+                    <span>{{ tip }}</span>
+                </form>
+                <a href="/register/" ><span class="register">没有注册？点击注册账号！</span></a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

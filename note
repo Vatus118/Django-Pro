@@ -1,0 +1,40 @@
+django_study_demo
+│─ manage.py			【项目管理的脚本，不要修改，eg：启动、创建app、数据库管理等】
+└─django_study_demo		【与项目同名的文件夹】
+     │─ asgi.py			【和wsgi.py一起，接收网络请求的】【不用修改】【Django接收异步的】
+     │─ settings.py		【项目的配置文件，eg：数据库连接信息、注册app等】【常操作】
+     │─ urls.py			【全部的URL和函数的对应关系】【常操作】
+     │─ wsgi.py			【和asgi.py一起，接收网络请求的】【不用修改】【Django接收同步的】
+     │─ __init__.py
+└─index						【app名命名的文件夹】
+     │  admin.py				【固定的不用动】django默认提供的后台管理，但实际开发不常用
+     │  apps.py				【固定的不用动】app启动相关
+     │  models.py			【☆很重要，对数据库进行操作】这里不用SQL写了，Django封装了ORM供调用
+     │  tests.py				【固定的不用动】用来单元功能测试的，个人小项目可以不用管
+     │  views.py				【☆很重要，撰写视图函数（得我们自己写的）】
+     │  __init__.py
+     └─migrations			【固定的不用动】数据库变更记录，会自动生成文件，我们不用动
+            __init__.py
+            
+python manage.py makemigrations
+python manage.py migrate
+
+
+class Standing(models.Model):
+    '球队积分建表'
+    teamid = models.ForeignKey(
+        verbose_name="球队ID",
+        to="Team",
+        to_field="teamid",
+        db_column='teamid',
+        on_delete=models.CASCADE
+    )
+    goals = models.IntegerField(verbose_name="进球数", default=0)
+    winlose = models.CharField(verbose_name="胜/平/负", max_length=10)
+    points = models.IntegerField(verbose_name="积分", default=0)
+
+
+4.30任务：
+     1.球队+球员搜索
+     2.球队+球员图片
+     3.登录界面开发 

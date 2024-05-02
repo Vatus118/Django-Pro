@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="loginview" content="width=device-width, initial-scale=1.0">
+    <title>注册</title>
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+</head>
+<body>
+    <div class="content">
+        <div class="introduce">
+            <div class="introduce-title">
+                <p class="tips animate__animated animate__fadeIn">
+                    注册账号即可体验：
+                </p>
+            </div>
+            <div class="introduce-content">
+                <ul class="tips animate__animated animate__fadeIn">
+                    <li>1.英超排行榜：主页展示英超球队的排名和积分情况!</li>
+                    <li>2.球队详情页：查看球队的基本信息、球员列表和赛程安排!</li>
+                    <li>3.球员信息页：查看该球员的详细信息!</li>
+                    <li>4.比赛数据统计：查看每场比赛的详细数据统计!</li>
+                    <li>5.数据搜索和过滤：搜索球队或球员名称以快速找到感兴趣的信息！</li>
+                    <li>6.数据分析和对比：球队及球员的数据分析和对比！</li>
+                    <li>7.响应式界面设计：响应式布局保证用户良好体验！</li>
+                </ul>
+            </div>
+        </div>
+        <div class="form-wrapper animate__animated animate__fadeIn">
+            <div class="register-form">
+                <h2>Register</h2>
+                <div class="other-register">
+                    <img src="../static/img/matchlogo.png" alt="">
+                    <span>23/24英格兰超级联赛</span>
+                </div>
+                <form class="formStyle" method="post" action="/register/">
+                    {% csrf_token %}
+                    <div class="register-label">
+                        <span>账号名称</span>
+                        <input type="text" name="username" class="text" placeholder="username">
+                    </div>
+                    <div class="register-label">
+                        <span>邮箱</span>
+                        <input type="text" name="email" class="text" placeholder="mail@website.com">
+                    </div>
+                    <div class="gender">
+                        <span class="sex">性别</span>
+                        <span class="line"></span>
+                        <input type="radio" name="sex">
+                        <span class="man">男</span>
+                        <span class="line"></span>
+                        <input type="radio" name="sex">
+                        <span class="woman">女</span>
+                        <span class="line"></span>
+                    </div>
+                    <div class="register-label">
+                        <span>密码</span>
+                        <input type="password" name="password" class="text" placeholder="Min. 8 character">
+                    </div>
+                    <button class="btn">注册</button>
+                    <span>{{ tip }}</span>
+                    <a href="/login/" ><input type="button" class="btnn" value="返回登录"></a>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

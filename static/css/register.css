@@ -1,0 +1,230 @@
+@charset "UTF-8";
+@font-face {
+  font-family: Butler_Light;
+  font-weight: 700;
+  src: url(../asset/font/Butler_Light.otf) format("truetype");
+  text-rendering: optimizeLegibility;
+}
+@font-face {
+  font-family: Butler_Black;
+  font-weight: 700;
+  src: url(../asset/font/Butler_Black.otf) format("truetype");
+  text-rendering: optimizeLegibility;
+}
+* {
+  padding: 0;
+  margin: 0;
+    font-family: Butler_Light;
+}
+
+body{
+    background-image: url(../img/login.jpg?version=1.2);
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: #fff;
+}
+
+.content {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  overflow: hidden;
+}
+
+.content .introduce {
+  width: 50%;
+  height: 100%;
+  position: relative;
+  position: relative;
+}
+
+.content .introduce .introduce-title {
+  text-align: center;
+  position: relative;
+  top: 20%;
+}
+
+.content .introduce .introduce-title .tips {
+  margin: 20px 0;
+  font-size: 25px;
+  left: 20%;
+  top: 40%;
+  transform: translateY(-50%);
+  font-family: Butler_Black;
+}
+
+.content .introduce .introduce-content {
+  position: absolute;
+  top: 25%;
+  margin: 20px 0;
+}
+
+.content .introduce .introduce-content .tips li {
+  text-indent: 60px;
+  display: block;
+  margin-bottom: 30px;
+  left: 20%;
+  top: 40%;
+  font-family: Butler_Black;
+}
+
+.content .form-wrapper {
+  width: 50%;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20% 10%;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.06);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.content .form-wrapper .register-form {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.content .form-wrapper .register-form h2 {
+  font-weight: lighter;
+  font-size: 55px;
+  margin-bottom: 20px;
+}
+
+.content .form-wrapper .register-form .other-register {
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    border: 1px solid #fff;
+    text-align: center;
+    border-radius: 10px;
+    box-sizing: border-box;
+    margin: 0px 0 10px 0;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.content .form-wrapper .register-form .other-register:hover {
+  border: 1px solid #9faff8;
+}
+
+.content .form-wrapper .register-form .other-register img {
+  width: 30px;
+  height: 30px;
+  vertical-align: middle;
+}
+
+.content .form-wrapper .register-form .other-register span {
+  vertical-align: middle;
+}
+
+.content .form-wrapper .register-form .formStyle .register-label {
+  width: 100%;
+  height: 60px;
+  color: #fff;
+  margin: 20px 0 40px 0;
+}
+
+.content .form-wrapper .register-form .formStyle .register-label span {
+  display: inline-block;
+  margin-bottom: 5px;
+}
+
+.content .form-wrapper .register-form .formStyle .register-label .text {
+  width: 100%;
+  height: 50px;
+  border-radius: 10px;
+  border: 1px solid #fff;
+  padding: 10px 0 10px 30px;
+  box-sizing: border-box;
+  background-color: transparent;
+  outline: none;
+  color: #fff;
+  font-size: 20px;
+  transition: 0.2s;
+}
+
+.content .form-wrapper .register-form .formStyle .register-label .text::placeholder {
+  color: white;
+  opacity: 1;
+}
+
+.content .form-wrapper .register-form .formStyle .register-label .text:focus {
+  border: 1px solid #9faff8;
+}
+
+.content .form-wrapper .register-form .formStyle .register-label .text::-webkit-input-placeholder {
+  /* 使用webkit内核的浏览器 */
+  color: #fff;
+}
+
+.content .form-wrapper .register-form .formStyle .register-label .text:-moz-placeholder {
+  /* Firefox版本4-18 */
+  color: #fff;
+}
+
+.content .form-wrapper .register-form .formStyle .register-label .text::-moz-placeholder {
+  /* Firefox版本19+ */
+  color: #fff;
+}
+
+.content .form-wrapper .register-form .formStyle .register-label .text:-ms-input-placeholder {
+  /* IE浏览器 */
+  color: #fff;
+}
+
+.content .form-wrapper .register-form .formStyle .gender {
+  width: 100%;
+  margin: 20px 0 30px 0;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.content .form-wrapper .register-form .formStyle .gender .man {
+  margin: 0 10px 0 10px;
+}
+
+.content .form-wrapper .register-form .formStyle .gender .woman {
+  margin: 0 10px 0 10px;
+}
+
+.content .form-wrapper .register-form .formStyle .gender .line {
+  display: inline-block;
+  flex: 1;
+  background-color: #fff;
+}
+
+.content .form-wrapper .register-form .formStyle .btn {
+  width: 100%;
+  height: 50px;
+  border: 0;
+  background-color: #fff;
+  border-radius: 5px;
+  color: #000;
+  text-align: center;
+  margin: 20px 0 30px 0;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.content .form-wrapper .register-form .formStyle .btnn {
+  width: 100%;
+  height: 50px;
+  border: 0;
+  background-color: #fff;
+  border-radius: 5px;
+  color: #000;
+  text-align: center;
+  font-size: 20px;
+  cursor: pointer;
+}

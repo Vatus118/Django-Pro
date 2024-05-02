@@ -1,0 +1,192 @@
+
+{% include "navbar.html" %}
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  font-size: 28px;
+}
+
+.player-photo{
+  width: 30px;
+  height: 30px;
+}
+
+.team-logo {
+  width: 100px;
+  height: 100px;
+}
+
+.team-info {
+  display: flex;
+  justify-content: space-around;
+}
+
+.team {
+  text-align: center;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {background-color: #f2f2f2;}
+
+.scrollable {
+  overflow-x:auto;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: #111;
+}
+
+</style>
+</head>
+<body>
+
+<div class="team-info">
+  <div class="team">
+    <img class="team-logo" src='sources/teams/${match.host_teamname}.png'>
+    <h1>{{match.host_teamname}}</h1>
+    <h2>{{match.host_teamscore}}</h2>
+  </div>
+
+  <div class="team">
+    <img class="team-logo" src='sources/teams/${match.away_teamname}.png'>
+    <h1>{{match.away_teamname}}</h1>
+    <h2>{{match.away_teamscore}}</h2>
+  </div>
+</div>
+
+<ul>
+  <li><a href="#比赛信息">比赛信息</a></li>
+  <li><a href="#主队队员">主队队员</a></li>
+  <li><a href="#客队队员">客队队员</a></li>
+</ul>
+
+<div id="比赛信息">
+  <h2>比赛信息</h2>
+  <table>
+    <tr>
+      <th>比赛日期</th>
+      <td>{{match.date}}</td>
+    </tr>
+    <tr>
+      <th>比赛地点</th>
+      <td>{{match.location}}</td>
+    </tr>
+    <tr>
+      <th>比赛状态</th>
+      <td>{{match.status}}</td>
+    </tr>
+  </table>
+</div>
+
+<div id="主队队员">
+<h2>主队队员</h2>
+  <div class="scrollable">
+  <table>
+    <tr>
+      <th>号码</th>
+      <th>姓名</th>
+      <th>照片</th>
+      <th>位置</th>
+      <th>国籍</th>
+      <th>进球</th>
+      <th>助攻</th>
+      <th>解围</th>
+      <th>抢断</th>
+      <th>红牌</th>
+      <th>黄牌</th>
+      <th>越位</th>
+    </tr>
+    {% for player in match.host_teamplayers %}
+      <tr>
+        <td>{{player.number}}</td>
+        <td>{{player.name}}</td>
+        <td><img class="player-photo" src='source/players/${player.name}.png'></td>
+        <td>{{player.position}}</td>
+        <td>{{player.nation}}</td>
+        <td>{{player.goal}}</td>
+        <td>{{player.assist}}</td>
+        <td>{{player.clearance}}</td>
+        <td>{{player.tackle}}</td>
+        <td>{{player.redcard}}</td>
+        <td>{{player.yellowcard}}</td>
+        <td>{{player.offside}}</td>
+      </tr>
+    {% endfor %}
+  </table>
+  </div>
+</div>
+
+<div id="客队队员">
+<h2>客队队员</h2>
+  <div class="scrollable">
+  <table>
+    <tr>
+      <th>号码</th>
+      <th>姓名</th>
+      <th>照片</th>
+      <th>位置</th>
+      <th>国籍</th>
+      <th>进球</th>
+      <th>助攻</th>
+      <th>解围</th>
+      <th>抢断</th>
+      <th>红牌</th>
+      <th>黄牌</th>
+      <th>越位</th>
+    </tr>
+    {% for player in match.away_teamplayers %}
+      <tr>
+        <td>{{player.number}}</td>
+        <td>{{player.name}}</td>
+        <td><img class="player-photo" src='source/players/${player.name}.png'></td>
+        <td>{{player.position}}</td>
+        <td>{{player.nation}}</td>
+        <td>{{player.goal}}</td>
+        <td>{{player.assist}}</td>
+        <td>{{player.clearance}}</td>
+        <td>{{player.tackle}}</td>
+        <td>{{player.redcard}}</td>
+        <td>{{player.yellowcard}}</td>
+        <td>{{player.offside}}</td>
+      </tr>
+    {% endfor %}
+  </table>
+  </div>
+</div>
+
+</body>
+</html>
