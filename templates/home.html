@@ -26,6 +26,7 @@
 <table>
 	<tr>
 		<th>排名</th>
+		<th>图标</th>
 		<th>球队</th>
         <th>场数</th>
 		<th>进球数</th>
@@ -36,6 +37,7 @@
 	{% for team in teams %}
 	<tr>
 		<td>{{ team.teamid }}</td>
+		<td><img src="{% static 'img/' %}{{ team.icon_filename }}" alt="{{ team.name }}" style="width:50px; height:auto;"></td>
 		<td><a href="{% url 'team_detail' team.teamid %}">{{ team.name }}</a></td>
 		<td>{{ team.sum }}</td>
 		<td>{{ team.goals }}</td>
