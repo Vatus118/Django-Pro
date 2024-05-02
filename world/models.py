@@ -101,6 +101,7 @@ class Standing(models.Model):
         verbose_name="排名",
         primary_key=True
     )
+    icon_filename = models.CharField(verbose_name="图标", max_length=30, default='default_icon.png')
     name = models.CharField(verbose_name="球队名", max_length=40)
     sum = models.IntegerField(verbose_name="场次",
                               default=0)

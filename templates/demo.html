@@ -73,7 +73,7 @@ tr:hover {background-color:#f5f5f5;}
       </tr>
     {% for Match in matches %}
       <tr>
-        <td><a href="{% url 'match_detail' match.id %}">{{match.date}}</td>
+          <td><a href="{% url 'match_detail' match.id %}">{{match.date}}</a></td>
         <td>{{Match.host_team}}</td>
         <td>{{Match.host_team_score}}</td>
         <td>{{Match.away_team_score}}</td>
