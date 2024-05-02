@@ -86,6 +86,9 @@ python manage.py migrate
 # For search feature we need to index certain tables to the haystack. For that run below command.
 python manage.py rebuild_index
 
+#
+python manage.py collectstatic
+
 # Run the server
 python manage.py runserver localhost:8001
 

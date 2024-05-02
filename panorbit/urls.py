@@ -11,4 +11,7 @@ urlpatterns = [
     path('login/', views.login_view, name='login'),
     path('register/', views.register, name='register'),
     path('admin/', admin.site.urls),
+
+    url(r'^static/(?P<path>.*)$', static.serve,
+      {'document_root': settings.STATIC_ROOT}, name='static'),
 ]
