@@ -1,0 +1,19 @@
+@font-face {
+    font-family: Butler_Light;
+    font-weight: 700;
+    src: url(../asset/font/Butler_Light.otf) format("truetype");
+    text-rendering: optimizeLegibility;
+}
+
+@font-face {
+    font-family: Butler_Black;
+    font-weight: 700;
+    src: url(../asset/font/Butler_Black.otf) format("truetype");
+    text-rendering: optimizeLegibility;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: Butler_Light;
+}

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Echarts</title>
+    <script src="../static/js/echarts.js"></script>
+    <script src="../static/js/purple-passion.js"></script>
+</head>
+<body>
+    <div class="image" style="text-align:center">
+        <img src='{{ img.icon_filename }}'>
+        <h1>{{ player.name }}</h1>
+        <ul>
+            <li><a class="active" href="#Introduce">资料</a></li>
+            <li><a href="#Data">数据</a></li>
+            <li><a href="{% url 'contrast' player.playerid %}">对比</a> </li>
+        </ul>
+    </div>    
+    
+    <div id="Data" style="width: 600px;height:400px;"></div>
+    <script type="text/javascript">
+        var myChart = echarts.init(document.getElementById('Data'), 'purple-passion');
+        var option = {
+            title: {
+                text: 'ECharts Getting Started Example'
+            },
+            tooltip: {},
+            xAxis: {
+                data: ['', 'Cardigans', 'Chiffons', 'Pants', 'Heels', 'Socks']
+            },
+            yAxis: {},
+            series: [
+                {
+                    name: 'sales',
+                    type: 'bar',
+                    data: [5, 20, 36, 10, 10, 20]
+                }
+            ]
+        }
+        myChart.setOption(option);
+    </script>    
+    <div class="data_wrapper">
+        <div class="zone_one">
+            <div class="row">
+                <div class="row_title">基本数据</div>
+                <div class="c_row" gutter="24" style="flex-wrap: wrap; justify-content: start;">
+                    <div class="c_span" style="flex: 0 0 auto;">
+                        <p class="item">比赛场次</p>
+                        <p class="item_score">{{ behavior.sum }}</p>
+                    </div>
+                    <div class="c_span" style="flex: 0 0 auto;">
+                        <p class="item">首发</p>
+                        <p class="item_score">{{ behavior.first }}</p>
+                    </div>
+                    <div class="c_span" style="flex: 0 0 auto;">
+                        <p class="item">总比赛时间</p>
+                        <p class="item_score">{{ behavior.matchtime }}</p>
+                    </div>
+                </div>
+            </div>
+            <p class="c_gap_line" style="height: 0.09rem; background-color: rgb(245, 246, 249);"></p>
+        </div>    
+        <div class="zone_two">
+            <div class="row">
+                <div class="row_title">进攻数据</div>
+                <div class="c_row" style="flex-wrap: wrap; justify-content: start;">
+                    <div class="c_span">
+                        <p class="item">进球数</p>
+                        <p class="item_score">{{ behavior.goal }}</p>
+                    </div>
+                    <div class="c_span">
+                        <p class="item">点球</p>
+                        <p class="item_score">{{ behavior.penalty }}</p>
+                    </div>
+                    <div class="c_span">
+                        <p class="item">射门</p>
+                        <p class="item_score">{{ behavior.shooting }}</p>
+                    </div>
+                    <div class="c_span">
+                        <p class="item">射正</p>
+                        <p class="item_score">{{ behavior.target }}</p>
+                    </div>
+                    <div class="c_span">
+                        <p class="item">过人</p>
+                        <p class="item_score">{{ behavior.passing }}</p>
+                    </div>
+                    <div class="c_span">
+                        <p class="item">任意球</p>
+                        <p class="item_score">{{ behavior.free }}</p>
+                    </div>
+                    <div class="c_span">
+                        <p class="item">任意取得分</p>
+                        <p class="item_score">{{ behavior.free_goal }}</p>
+                    </div>
+                    <div class="c_span">
+                        <p class="item">击中门框</p>
+                        <p class="item_score">{{ behavior.hitdoor }}</p>
+                    </div>
+                    <div class="c_span">
+                        <p class="item">快攻</p>
+                        <p class="item_score">{{ behavior.quick }}</p>
+                    </div>
+                    <div class="c_span">
+                        <p class="item">快攻射门</p>
+                        <p class="item_score">{{ behavior.quick_atk }}</p>
+                    </div>
+                    <div class="c_span">
+                        <p class="item">快攻进球</p>
+                        <p class="item_score">{{ behavior.quick_goal }}</p>
+                    </div>
+                    <div class="c_span">
+                        <p class="item">丢失球权</p>
+                        <p class="item_score">{{ behavior.lost_right }}</p>
+                    </div>
+                    <div class="c_span">
+                        <p class="item">传球</p>
+                        <p class="item_score">{{ behavior.passball }}</p>
+                    </div>
+                </div>
+            </div>
+            <p class="c_gap_line" style="height: 0.09rem; background-color: rgb(245, 246, 249);"></p>
+        </div>
+        <div class="zone_three">
+            <div class="row">
+                <div class="row_title">组织数据</div>
+                <div class="c_row">
+                    <div class="c_span">
+                        <p class="item">传球</p>
+                        <p class="item_score">{{ behavior.passball }}</p>
+                    </div>
+                    <div class="c_span">
+                        <p class="item">传球成功</p>
+                        <p class="item_score">{{ behavior.valid_passball }}</p>
+                    </div>
+                    <div class="c_span">
+                        <p class="item">关键传球</p>
+                        <p class="item_score">{{ behavior.key_passball }}</p>
+                    </div>
+                    <div class="c_span">
+                        <p class="item">传中球</p>
+                        <p class="item_score">{{ behavior.midpass }}</p>
+                    </div>
+                    <div class="c_span">
+                        <p class="item">传中球成功</p>
+                        <p class="item_score">{{ behavior.valid_midpass }}</p>
+                    </div>
+                    <div class="c_span">
+                        <p class="item">长传</p>
+                        <p class="item_score">{{ behavior.longpass }}</p>
+                    </div>
+                    <div class="c_span">
+                        <p class="item">成功长传</p>
+                        <p class="item_score">{{ behavior.valid_longpass }}</p>
+                    </div>
+                    <div class="c_span">
+                        <p class="item">传球被断</p>
+                        <p class="item_score">{{ behavior.lost_pass }}</p>
+                    </div>
+                </div>
+            </div>
+            <p class="c_gap_line" style="height: 0.09rem; background-color: rgb(245, 246, 249);"></p>
+        </div>
+        <div class="zone_four">
+            <div class="row">
+                <div class="row_title">防守数据</div>
+                <div class="c_row">
+                    <div class="c_span">
+                        <p class="item">解围</p>
+                        <p class="item_score">{{ behavior.breaking }}</p>
+                    </div>
+                    <div class="c_span">
+                        <p class="item">有效阻挡</p>
+                        <p class="item_score">{{ behavior.valid_prevent }}</p>
+                    </div>
+                    <div class="c_span">
+                        <p class="item">拦截</p>
+                        <p class="item_score">{{ behavior.intercept }}</p>
+                    </div>
+                    <div class="c_span">
+                        <p class="item">抢断</p>
+                        <p class="item_score">{{ behavior.preemption }}</p>
+                    </div>
+                    <div class="c_span">
+                        <p class="item">1对1拼抢</p>
+                        <p class="item_score">{{ behavior.onebyone }}</p>
+                    </div>
+                    <div class="c_span">
+                        <p class="item">1对1拼抢成功</p>
+                        <p class="item_score">{{ behavior.valid_onebyone }}</p>
+                    </div>
+                    <div class="c_span">
+                        <p class="item">拳击球</p>
+                        <p class="item_score">{{ behavior.handball }}</p>
+                    </div>
+                    <div class="c_span">
+                        <p class="item">守门员出击</p>
+                        <p class="item_score">{{ behavior.keeper_atk }}</p>
+                    </div>
+                    <div class="c_span">
+                        <p class="item">守门员出击成功</p>
+                        <p class="item_score">{{ behavior.valid_atk }}</p>
+                    </div>
+                    <div class="c_span">
+                        <p class="item">高空出击</p>
+                        <p class="item_score">{{ behavior.high_atk }}</p>
+                    </div>
+                </div>
+            </div>
+            <p class="c_gap_line" style="height: 0.09rem; background-color: rgb(245, 246, 249);"></p>
+        </div>
+        <div class="zone_five">
+            <div class="row">
+                <div class="row_title">纪律数据</div>
+                <div class="c_row">
+                    <div class="c_span">
+                        <p class="item">红牌</p>
+                        <p class="item_score">{{ behavior.redcard }}</p>
+                    </div>
+                    <div class="c_span">
+                        <p class="item">黄牌</p>
+                        <p class="item_score">{{ behavior.yellowcard }}</p>
+                    </div>
+                    <div class="c_span">
+                        <p class="item">犯规</p>
+                        <p class="item_score">{{ behavior.foul }}</p>
+                    </div>
+                    <div class="c_span">
+                        <p class="item">被侵犯</p>
+                        <p class="item_score">{{ behavior.violated }}</p>
+                    </div>
+                    <div class="c_span">
+                        <p class="item">越位</p>
+                        <p class="item_score">{{ behavior.offside }}</p>
+                    </div>
+                    <div class="c_span">
+                        <p class="item">两黄变红</p>
+                        <p class="item_score">{{ behavior.turnred }}</p>
+                    </div>
+                </div>
+            </div>
+            <p class="c_gap_line" style="height: 0.09rem; background-color: rgb(245, 246, 249);"></p>
+        </div>
+    </div>
+</body>
+</html>

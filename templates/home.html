@@ -1,50 +1,58 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="zh-CN">
-{% load static %}
 <meta charset="UTF-8">
 
-<div class="container mt-5">
-	<h4 class="card-title mt-3 text-center">PanOrbit</h4>
-	<div class="row">
-		<div class="form-group input-group col-sm-10">
-			<div class="input-group-prepend">
-				<span class="input-group-text"> <i class="fa fa-search"></i> </span>
-			 </div>
-			<input name="" class="form-control search" placeholder="Enter 3 or more characters" type="text">
-		</div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="demoview" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <title>Welcome home!</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+</head>
 
-		<div class="form-group col-sm-2">
-			<button type="submit" class="btn btn-outline-success" id="search_submit"> Search  </button>
-		</div>
-	</div>
-</div>
-<div class="container search_results">
-</div>
-
-
-<table>
-	<tr>
-		<th>排名</th>
-		<th>图标</th>
-		<th>球队</th>
-        <th>场数</th>
-		<th>进球数</th>
-        <th>失球数</th>
-		<th>净胜球</th>
-		<th>积分</th>
-	</tr>
-	{% for team in teams %}
-	<tr>
-		<td>{{ team.teamid }}</td>
-		<td><img src="{% static 'img/' %}{{ team.icon_filename }}" alt="{{ team.name }}" style="width:50px; height:auto;"></td>
-		<td><a href="{% url 'team_detail' team.teamid %}">{{ team.name }}</a></td>
-		<td>{{ team.sum }}</td>
-		<td>{{ team.goals }}</td>
-        <td>{{ team.miss }}</td>
-        <td>{{ team.clear }}</td>
-		<td>{{ team.points }}</td>
-	</tr>
-	{% endfor %}
-</table>
+<body>
+    <div style="float: right; width: 300px">
+        <form class="formStyle" method="POST" name="/search/">
+            {% csrf_token %}
+            <div class="input-group">
+                <label for="search"></label>
+                <input type="text" id="search" name="search" class="form-control" placeholder="请输入球队英文名">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    </button>
+                </span>
+            </div>
+        </form>
+    </div>
+    <div class="data-wrapper">
+        <div class="table_title">
+            <tr>
+                <th>排名</th>
+                <th>图标</th>
+                <th>球队</th>
+                <th>场数</th>
+                <th>进球数</th>
+                <th>失球数</th>
+                <th>净胜球</th>
+                <th>积分</th>
+            </tr>
+        </div>
+        <table>
+            {% for team in teams %}
+            <tr>
+                <td>{{ team.teamid }}</td>
+                <td><img src="{{ team.icon_filename }}" alt="{{ team.icon_filename }}" style="width:50px; height:auto;"></td>
+                <td><a href="{% url 'team_detail' team.teamid %}">{{ team.name }}</a></td>
+                <td>{{ team.sum }}</td>
+                <td>{{ team.goals }}</td>
+                <td>{{ team.miss }}</td>
+                <td>{{ team.clear }}</td>
+                <td>{{ team.points }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
 </html>

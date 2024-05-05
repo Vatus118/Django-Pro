@@ -1,4 +1,5 @@
 import pandas as pd
+from django.db.models import Q
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.hashers import make_password
 from django.shortcuts import render, redirect
@@ -15,16 +16,6 @@ excel_data1 = pd.read_excel('数据话英超.xls')
 
 # Create your views here.
 # 第一个位子是视图函数的request参数，第二个参数位是html文件路径
-def temp_learn(request):
-    user_info = {
-        "name": "zm",
-        "salary": 100000,
-        "role": "CTO",
-    }
-    name = "zm"
-    student = ["first_name", "last_name"]
-    return render(request, "templates_learn.html", {"n1": name, "stu_list": student, "user_info": user_info})
-
 
 def user_list(request):
     return render(request, "user_list.html")
@@ -58,7 +49,7 @@ def register(request):
 
 def login_view(request):
     if request.method == 'GET':
-        return render(request, 'login.html',)
+        return render(request, 'login.html', )
     elif request.method == 'POST':
         # 获取参数
         email = request.POST.get('email', '')
@@ -84,28 +75,46 @@ def login_view(request):
 
 
 def get_standing(request):
-    teams = Standing.objects.all()
-    return render(request, "home.html", {"teams": teams})
+    if request.method == 'GET':
+        teams = Standing.objects.all()
+        return render(request, "home.html", {"teams": teams})
+    elif request.method == 'POST':
+        search_filter = {}
+        search_data = request.POST.get('search')
+        if search_data:
+            search_filter['name__icontains'] = search_data
+            teams = Standing.objects.filter(**search_filter).order_by('-points')
+            return render(request, "home.html", {"teams": teams})
 
 
-def get_team_details(request, teamid):
-    team_data = Team.objects.get(teamid=teamid)
-    match_data = Match.objects.filter(teamid=teamid).order_by('date')
-    player_data = Player.objects.filter(teamid=teamid).order_by('-prize')
+def get_team_details(request, team_id):
+    img = Standing.objects.get(teamid=team_id)
+    teams = Team.objects.get(teamid=team_id)
+    matches = Match.objects.filter(
+        Q(hostteamid=teams.shortname) | Q(guestteamid=teams.shortname)
+    )
+    players = Player.objects.filter(teamname=teams.name).order_by('-prize')
     return render(request, "demo.html", {
-        "team_data": team_data,
-        "match_data": match_data,
-        "player_data": player_data
+        "img": img,
+        "Team": teams,
+        "matches": matches,
+        "players": players,
+        "team_id": team_id
     })
 
 
-def get_player_details(request, playerid):
-    player_data = Player.objects.get(playerid=playerid)
-    return render(request, "player.html", {"player": player_data})
+def get_player_details(request, player_id):
+    player_data = Player.objects.get(playerid=player_id)
+    behavior_data = Statistic.objects.get(playerid=player_id)
+    return render(request, "player.html", {"player": player_data, "behavior": behavior_data})
 
 
-def get_match_details(request, matchid):
-    match_data = Statistic.objects.select_related('Match').filter(matchid=matchid).values(
+def get_match_details(request, match_id):
+    match_data = Statistic.objects.select_related('Match').filter(matchid=match_id).values(
         'playerid', 'behavior', 'behaviorcount', 'matchid'
     )
     return render(request, "match.html", {"match_data": match_data})
+
+
+def get_contrast_details(request, player_id):
+    return render(request, "contrast.html")
