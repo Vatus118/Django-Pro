@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-peg9tg2zz_&-x9k*(b6z19vf8o%g-+%(c)-t*00hnoj6wee4q0'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['luluji.pythonanywhere.com', 'localhost', '127.0.0.1']
 
@@ -83,7 +83,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',  # Django的引擎，还可以用Oracle等
         'NAME': 'django',  # 数据库名
         'USER': 'root',  # 用户名
-        'PASSWORD': 'LZKlzk620273',  # 密码
+        'PASSWORD': 'luluji',  # 密码
         'HOST': 'localhost',  # 数据库服务器地址
         'PORT': 3306,  # 端口号（MySQL默认3306）
     }
@@ -139,3 +139,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': os.path.join(os.path.dirname(__file__), 'whoosh_index'),
+    },
+}

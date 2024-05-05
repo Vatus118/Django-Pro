@@ -1,11 +1,18 @@
+{% extends "base.html" %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="zh-CN">
-{% load static %}
 <meta charset="UTF-8">
 
+{% block scripts %}
+    {{ block.super }}
+    <script src="{% static 'js/home.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+{% include "navbar.html" %}
 <div class="container mt-5">
-	<h4 class="card-title mt-3 text-center">PanOrbit</h4>
+	<h4 class="card-title mt-3 text-center">英超23/24</h4>
 	<div class="row">
 		<div class="form-group input-group col-sm-10">
 			<div class="input-group-prepend">
@@ -48,3 +55,5 @@
 	{% endfor %}
 </table>
 </html>
+
+{% endblock %}

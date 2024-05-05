@@ -1,0 +1,40 @@
+<h4> 球队 </h4>
+{% if not teams %}
+    <p class="text-center"> 没有找到球队信息! </p>
+{% endif %}
+<div class="row">
+    {% for i in teams %}
+        <div class="col-sm-4 mb-5">
+            <div class="card" style="width: 18rem;">
+              <div class="card-body">
+                <h5 class="card-title"> {{ i.name }} </h5>
+                <p class="card-text">简称: {{ i.shortname }}
+                    <br> 城市: {{ i.city }}
+                </p>
+                  <a href="/team/{{ i.teamid }}" class="btn btn-outline-success">了解更多</a>
+              </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+<h4> 球员 </h4>
+{% if not cities %}
+    <p class="text-center"> 没有找到球员信息! </p>
+{% endif %}
+<div class="row">
+    {% for i in cities %}
+        <div class="col-sm-4 mb-5">
+            <div class="card" style="width: 18rem;">
+              <div class="card-body">
+                <h5 class="card-title"> {{ i.name }} </h5>
+                <p class="card-text">team code: {{ i.teamid }}
+                <br> position: {{ i.position }}
+                <br> nation: {{ i.nation }}
+                </p>
+                   <a href="/player/{{ i.playerid }}" class="btn btn-outline-success">了解更多</a>
+              </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>

@@ -9,6 +9,10 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 
+
+from django.http import JsonResponse, HttpResponseRedirect, HttpResponse
+from haystack.query import SearchQuerySet
+
 # excel数据读取
 excel_data1 = pd.read_excel('数据话英超.xls')
 
@@ -71,7 +75,7 @@ def login_view(request):
             if user:
                 # 用户已激活
                 if user.is_active:
-                    return redirect('/home/')
+                    return redirect('/')
                 # 未激活
                 else:
                     return render(request, 'login.html', {'tip': '用户未激活'})
@@ -109,3 +113,24 @@ def get_match_details(request, matchid):
         'playerid', 'behavior', 'behaviorcount', 'matchid'
     )
     return render(request, "match.html", {"match_data": match_data})
+
+
+def search(request):
+    query = request.GET.get("query", "").strip()
+    result = {"teams": [], "players": []}
+
+    if not query and len(query) < 3:
+        return JsonResponse(result)
+
+    team_pks = list(SearchQuerySet().autocomplete(i_city_name=query).values_list("pk", flat=True))
+    player_pks = list(SearchQuerySet().autocomplete(i_country_name=query).values_list("pk", flat=True))
+
+    result["teams"] = [Team.objects.filter(pk=team_pk).values().first() for team_pk in team_pks]
+    result["players"] = [Player.objects.filter(pk=player_pk).values().first() for player_pk in player_pks]
+
+    return render(request, "search_results.html", result)
+
+
+def c_logout(request):
+    logout(request)
+    return HttpResponseRedirect("/login")
