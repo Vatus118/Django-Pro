@@ -81,10 +81,10 @@ WSGI_APPLICATION = 'panorbit.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',  # Django的引擎，还可以用Oracle等
-        'NAME': 'django',  # 数据库名
-        'USER': 'root',  # 用户名
-        'PASSWORD': 'LZKlzk620273',  # 密码
-        'HOST': 'localhost',  # 数据库服务器地址
+        'NAME': 'luluji$default',  # 数据库名
+        'USER': 'luluji',  # 用户名
+        'PASSWORD': 'lulujiluluji',  # 密码
+        'HOST': 'luluji.mysql.pythonanywhere-services.com',  # 数据库服务器地址
         'PORT': 3306,  # 端口号（MySQL默认3306）
     }
 }
