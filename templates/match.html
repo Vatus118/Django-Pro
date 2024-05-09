@@ -1,172 +1,304 @@
+{% load static %}
+{% load custom_filters %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Watch matches!</title>
-    <script src="../static/js/echarts.js"></script>
-    <script src="../static/js/purple-passion.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-</head>    
-<style>
-body {
-  font-size: 28px;
-}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>See the match!</title>
+    <link rel="stylesheet" href="{% static 'css/match.css' %}">
+    <script src="{% static 'js/' %}echarts.js"></script>
+</head>
 
-.player-photo{
-  width: 30px;
-  height: 30px;
-}
-
-.team-logo {
-  width: 100px;
-  height: 100px;
-}
-
-.team-info {
-  display: flex;
-  justify-content: space-around;
-}
-
-.team {
-  text-align: center;
-}
-
-table {
-  border-collapse: collapse;
-  width: 100%;
-}
-
-th, td {
-  text-align: left;
-  padding: 8px;
-}
-
-tr:nth-child(even) {background-color: #f2f2f2;}
-
-.scrollable {
-  overflow-x:auto;
-}
-
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #333;
-  position: -webkit-sticky; /* Safari */
-  position: sticky;
-  top: 0;
-}
-
-li {
-  float: left;
-}
-
-li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-
-li a:hover {
-  background-color: #111;
-}
-
-</style>
 <body>
-
-<div class="team-info">
-  <div class="team">
-    <img class="team-logo" src='{{ hostfile.icon_filename }}' alt="hostfile.icon_filename" 
-         style="width:50px; height:auto;">
-    <h1>{{match_details.hostteam}}</h1>
-    <h2>{{match_details.hostgoal}}</h2>
+  <div id="main">
+    <div id="click-section">
+      <div id="drawerboxes">
+        <div class="drawerbox active">
+          <button class="drawer-btn active" onclick="slideTo(1)">比赛信息<span
+              class="drawer-head">1</span></button>
+        </div>
+        <div class="drawerbox">
+          <button class="drawer-btn" onclick="slideTo(2)">比赛数据<span
+              class="drawer-head">2</span></button>
+        </div>
+        <div class="drawerbox">
+          <button class="drawer-btn" onclick="slideTo(3)">主队球员<span class="drawer-head">3</span></button>
+        </div>
+        <div class="drawerbox">
+          <button class="drawer-btn" onclick="slideTo(4)">客队球员<span class="drawer-head">4</span></button>
+        </div>
+      </div>
+    </div>
+    <div id="slide-section">
+      <div id="slide-bar">
+        <div id="bar"></div>
+      </div>
+      <div id="card-section">
+        <div id="card1" class="card">
+          <div class="card-small-title">Match Information:</div>
+          <div class="team-info">
+              <div class="team">
+                <img class="team-logo" src='{{ hostfile.icon_filename }}' alt="hostfile.icon_filename" 
+                     style="width:100px; height:100px;">
+                <h1>{{match_details.hostteam}}</h1>
+                <h2>{{match_details.hostgoal}}</h2>
+              </div>
+              <div>
+                <img src="{% static 'img/' %}VS logo.png" alt="img" style="width:120px; height:120px;">
+              </div>
+              <div class="team">
+                <img class="team-logo" src='{{ guestfile.icon_filename }}' alt="guestfile.icon_filename" 
+                     style="width:100px; height:100px;">
+                <h1>{{match_details.guestteam}}</h1>
+                <h2>{{match_details.guestgoal}}</h2>
+              </div>
+          </div>
+          <div class="card-content">
+            <h2 class="primary">基本信息:</h2>
+            <table>
+                <tr class="horizontal-row">
+                    <th>主队：</th>
+                    <td>{{ hostchinaname }}</td>
+                    <th class="row-internal">客队：</th>
+                    <td>{{ guestchinaname }}</td>
+                </tr>
+                <tr class="horizontal-row">
+                    <th>比赛id：</th>
+                    <td>{{status.matchid}}</td>
+                    <th class="row-internal">比赛日期：</th>
+                    <td>{{match_details.date}}</td>
+                </tr>
+                <tr class="horizontal-row-final">
+                    <th>比赛状态：</th>
+                    <td colspan="3">{{status.status}}</td>
+                </tr>
+            </table>
+        </div>
+        </div>
+        <div id="card2" class="card">
+          <div class="card-small-title">Match Data:</div>
+          <div class="card-content">
+              <div class="card-title">
+                  <h2 class="winorlose">胜率预测：</h2>
+              </div>
+              <div class="card-date">
+                  <p>截止日期：{{ match_details.date }}</p>
+              </div>
+              <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress crystal" style="width: {{ match_details.hostwin|multiply:100|floatformat:"0" }}%;">{{ match_details.hostteam }} {{ match_details.hostwin|multiply:100|floatformat:"0" }}%</div>
+                    <div class="progress rare" style="width: {{ match_details.draw|multiply:100|floatformat:"0" }}%;">平局 {{ match_details.draw|multiply:100|floatformat:"0" }}%</div>
+                    <div class="progress common" style="width: {{ match_details.guestwin|multiply:100|floatformat:"0" }}%;">{{ match_details.guestteam }} {{ match_details.guestwin|multiply:100|floatformat:"0" }}%</div>
+                </div>
+              </div>
+              <div class="chart-container">
+                    <div id="Data" class="chart-wrapper" style="height: 400px; width: 600px;"></div>  
+                    <script type="text/javascript">
+                        var myChart = echarts.init(document.getElementById('Data'));
+                        var option = {
+                                title: {
+                                    text: '技术统计',
+                                    left: 'center',
+                                },
+                                tooltip: {
+                                    trigger: 'axis',
+                                    axisPointer: {
+                                        type: 'shadow'
+                                    }
+                                },
+                                grid: {
+                                    left: '3%',
+                                    right: '3%',
+                                    bottom: '3%',
+                                    containLabel: true
+                                },
+                                xAxis: {
+                                    type: 'value',
+                                    axisLabel: {
+                                        formatter: function (val) {
+                                            return Math.abs(val); // 显示值为绝对值
+                                        }
+                                    }
+                                },
+                                yAxis: {
+                                    type: 'category',
+                                    axisTick: {
+                                        show: false
+                                    },
+                                    data: ['红牌', '黄牌', '点球', '角球', '射偏', '射正', '危险进攻', '进攻', '控球率', '进球']
+                                },
+                                series: [
+                                    {
+                                        name: '{{ hostfile.name }}',
+                                        type: 'bar',
+                                        stack: '总量',
+                                        label: {
+                                            show: true,
+                                            position: 'left',
+                                            formatter: function (params) {
+                                                return Math.abs(params.value); // 使用标签格式器返回绝对值
+                                            }
+                                        },
+                                        data: [-{{ match_details.hostred }},
+                                                -{{ match_details.hostyellow }},
+                                                -{{ match_details.hostpoint }},
+                                                -{{ match_details.hostcornor }},
+                                                -{{ match_details.hostaway }},
+                                                -{{ match_details.hostdirect }},
+                                                -{{ match_details.hostdanatk }},
+                                                -{{ match_details.hostatk }},
+                                                -{{ match_details.hostcontrol|multiply:100|floatformat:"0" }},
+                                                -{{ match_details.hostgoal }}
+                                        ], // 使用负值
+                                        itemStyle: {
+                                            color: '#c23531'
+                                        }
+                                    },
+                                    {
+                                        name: '{{ guestfile.name }}',
+                                        type: 'bar',
+                                        stack: '总量',
+                                        label: {
+                                            show: true,
+                                            position: 'right',
+                                            formatter: function (params) {
+                                                return Math.abs(params.value); // 同样返回绝对值
+                                            }
+                                        },
+                                        data: [{{ match_details.guestred }},
+                                                {{ match_details.guestyellow }},
+                                                {{ match_details.guestpoint }},
+                                                {{ match_details.guestcornor }},
+                                                {{ match_details.guestaway }},
+                                                {{ match_details.guestdirect }},
+                                                {{ match_details.guestdanatk }},
+                                                {{ match_details.guestatk }},
+                                                {{ match_details.guestcontrol|multiply:100|floatformat:"0" }},
+                                                {{ match_details.guestgoal }}
+                                        ], // 使用值
+                                        itemStyle: {
+                                            color: '#2f4554'
+                                        }
+                                    }
+                                ]
+                            };
+                        myChart.setOption(option);
+                    </script>
+              </div>
+          </div>
+        </div>
+        <div id="card3" class="card">
+          <div class="card-small-title">Host Teammates</div>
+          <div class="teamname">
+              <img class="team-photo" src="{{ hostfile.icon_filename }}" alt="{{ hostfile.icon_filename }}"
+                                     style="width: 50px; height: 50px;">
+              <p style="color: #0f0f0f">{{ hostfile.name }}</p>
+          </div>
+          <div class="card-content">
+                <div class="scrollable">
+                    <div class="player-grid">
+                        {% for player in host_players %}
+                            <div class="player-card">
+                                <img class="player-photo" src="{{ player.icon_filename }}" alt="{{ player.name }}"
+                                     style="width: 50px; height: 50px;">
+                                <div class="player-name">
+                                    <a href="{% url 'player_detail' player.playerid %}">{{ player.name }}</a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+          </div>
+        </div>
+        <div id="card4" class="card">
+          <div class="card-small-title">Guest Teammates</div>
+          <div class="teamname">
+              <img class="team-photo" src="{{ guestfile.icon_filename }}" alt="{{ guestfile.icon_filename }}"
+                                     style="width: 50px; height: 50px;">
+              <p style="color: #0f0f0f">{{ guestfile.name }}</p>
+          </div>
+          <div class="card-content">
+                <div class="scrollable">
+                    <div class="player-grid">
+                        {% for player in guest_players %}
+                            <div class="player-card">
+                                <img class="player-photo" src="{{ player.icon_filename }}" alt="{{ player.name }}"
+                                     style="width: 50px; height: 50px;">
+                                <div class="player-name">
+                                    <a href="{% url 'player_detail' player.playerid %}">{{ player.name }}</a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div class="team">
-    <img class="team-logo" src='{{ guestfile.icon_filename }}' alt="guestfile.icon_filename" 
-         style="width:50px; height:auto;">
-    <h1>{{match_details.guestteam}}</h1>
-    <h2>{{match_details.guestgoal}}</h2>
-  </div>
-</div>
-
-<ul>
-  <li><a href="#比赛信息">比赛信息</a></li>
-  <li><a href="#主队队员">主队队员</a></li>
-  <li><a href="#客队队员">客队队员</a></li>
-</ul>
-
-<div id="比赛信息">
-  <h2>比赛信息</h2>
-  <table>
-    <tr>
-      <th>比赛id</th>
-      <td>{{status.matchid}}</td>
-    </tr>
-    <tr>    
-    <tr>
-      <th>比赛日期</th>
-      <td>{{match_details.date}}</td>
-    </tr>
-    <tr>
-      <th>比赛状态</th>
-      <td>{{status.status}}</td>
-    </tr>
-  </table>
-</div>
-
-<div id="主队队员">
-<h2>主队队员</h2>
-  <div class="scrollable">
-  <table>
-    <tr>
-          <th>id</th>
-          <th>照片</th>
-          <th>姓名</th>
-          <th>位置</th>
-          <th>国籍</th>
-    </tr>
-    {% for player in host_players %}
-      <tr>
-          <td>{{ player.playerid }}</td>
-          <td><img class="player-photo" src='{{ player.icon_filename }}' alt="player.icon_filename"
-            style="width:50px; height:auto;"></td>
-          <td>{{ player.name }}</td>
-          <td>{{ player.position}}</td>
-          <td>{{ player.nation}}</td>
-      </tr>
-    {% endfor %}
-  </table>
-  </div>
-</div>
-
-<div id="客队队员">
-<h2>客队队员</h2>
-  <div class="scrollable">
-  <table>
-    <tr>
-      <th>id</th>
-      <th>照片</th>  
-      <th>姓名</th>
-      <th>位置</th>
-      <th>国籍</th>
-    </tr>
-    {% for player in guest_players %}
-      <tr>
-        <td>{{ player.playerid }}</td>
-        <td><img class="player-photo" src='{{ player.icon_filename }}' alt="player.icon_filename"
-            style="width:50px; height:auto;"></td>  
-        <td>{{ player.name}}</td>
-        <td>{{ player.position }}</td>
-        <td>{{ player.nation }}</td>
-      </tr>
-    {% endfor %}
-  </table>
-  </div>
-</div>
-
+  <script>
+    // 定义变量 
+    let chosenSlideNumber = 1; // 当前选择的幻灯片编号 
+    let offset = 0; // 幻灯片偏移量 
+    let barOffset = 0; // 导航条偏移量 
+    let intervalID; // 定时器 ID 
+    // 启动幻灯片轮播 
+    startSlide();
+    // 获取所有抽屉按钮，并为每个按钮添加点击事件监听器 
+    const drawerBtns = Array.from(document.querySelectorAll(".drawer-btn"));
+    drawerBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        clearInterval(intervalID); // 清除定时器 
+        startSlide(); // 重新启动幻灯片轮播 
+      })
+    })
+    // 获取幻灯片区域 
+    const slideSection = document.querySelector("#slide-section");
+    // 鼠标移入幻灯片区域时清除定时器 
+    slideSection.addEventListener("mouseenter", () => {
+      clearInterval(intervalID);
+    })
+    // 鼠标移出幻灯片区域时重新启动幻灯片轮播 
+    slideSection.addEventListener("mouseleave", () => {
+      startSlide();
+    })
+    // 切换到指定编号的幻灯片 
+    function slideTo(slideNumber) {
+      drawerboxToggle(slideNumber); // 切换抽屉面板状态 
+      drawerbtnToggle(slideNumber); // 切换抽屉按钮状态 
+      // 更新偏移量 
+      let previousSlideNumber = chosenSlideNumber;
+      chosenSlideNumber = slideNumber;
+      offset += (chosenSlideNumber - previousSlideNumber) * (-100); // 计算幻灯片偏移量 
+      barOffset += (chosenSlideNumber - previousSlideNumber) * (100); // 计算导航条偏移量 
+      barSlide(barOffset); // 移动导航条 
+      // 获取所有幻灯片，为每个幻灯片设置偏移量 
+      const slides = document.querySelectorAll(".card");
+      Array.from(slides).forEach(slide => {
+        slide.style.transform = `translateY(${offset}%)`;
+      })
+    }
+    // 切换抽屉面板状态 
+    function drawerboxToggle(drawerboxNumber) {
+      let prevDrawerboxNumber = chosenSlideNumber;
+      const drawerboxes = document.querySelectorAll(".drawerbox");
+      drawerboxes[prevDrawerboxNumber - 1].classList.toggle("active"); // 切换前一个抽屉面板的状态 
+      drawerboxes[drawerboxNumber - 1].classList.toggle("active"); // 切换当前抽屉面板的状态 
+    }
+    // 切换抽屉按钮状态 
+    function drawerbtnToggle(drawerBtnNumber) {
+      let prevDrawerBtnNumber = chosenSlideNumber;
+      const drawerBtns = document.querySelectorAll(".drawer-btn");
+      drawerBtns[prevDrawerBtnNumber - 1].classList.toggle("active"); // 切换前一个抽屉按钮的状态 
+      drawerBtns[drawerBtnNumber - 1].classList.toggle("active"); // 切换当前抽屉按钮的状态 
+    }
+    // 移动导航条 
+    function barSlide(barOffset) {
+      const bar = document.querySelector("#bar");
+      bar.style.transform = `translateY(${barOffset}%)`;
+    }
+  </script>
 </body>
 </html>

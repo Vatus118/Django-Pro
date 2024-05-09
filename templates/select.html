@@ -3,30 +3,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="selectview" content="width=device-width, initial-scale=1.0">
+    <meta name="searchview" content="width=device-width, initial-scale=1.0">
     <title>Select one player!</title>
     <link rel="stylesheet" href="{% static 'css/select.css' %}">
 </head>
 <body>
     <div class="player-wrapper">
-        <h2>所有同位置球员如下：</h2>
-        <h2>请选择一名球员进行对比！</h2>
-        <table>
-            <div class="table_title">
-                <tr>
-                    <th>id</th>
-                    <th>头像</th>
-                    <th>球员名</th>
-                </tr>
-            </div>
+        <h2 class="h1">所有同位置球员如下：</h2>
+        <h2 class="h2">请选择一名球员进行对比！</h2>
+        <div class="players-grid">
             {% for player in players %}
-            <tr>
-                <td>{{ player.playerid }}</td>
-                <td><img src="{{ player.icon_filename }}" alt="{{ team.icon_filename }}" style="width:50px; height:50px;"></td>
-                <td><a href="{% url 'contrast_details' first_player_id player.playerid %}">{{ player.name }}</a></td>
-            </tr>
+            <div class="player-card">
+                <img src="{{ player.icon_filename }}" alt="Player Icon" style="width:50px; height:50px;">
+                <a href="{% url 'contrast_details' first_player_id player.playerid %}">{{ player.name }}</a>
+            </div>
             {% endfor %}
-        </table>
+        </div>
     </div>
 </body>
 </html>

@@ -1,0 +1,175 @@
+@charset "UTF-8";
+@font-face {
+  font-family: Butler_Light;
+  font-weight: 700;
+  src: url(../asset/font/Butler_Light.otf) format("truetype");
+  text-rendering: optimizeLegibility;
+}
+@font-face {
+  font-family: Butler_Black;
+  font-weight: 700;
+  src: url(../asset/font/Butler_Black.otf) format("truetype");
+  text-rendering: optimizeLegibility;
+}
+* {
+  padding: 0;
+  margin: 0;
+  font-family: Butler_Light;
+}
+
+body{
+    background-image: url(../img/background-three.png);
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.team-wrapper h2 {
+    font-size: 30px;
+}
+
+.team-wrapper {
+    margin: 20px auto;  /* 自动边距实现水平居中 */
+    padding: 40px 130px 40px 130px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* 轻微的阴影为布局添加深度 */
+}
+
+.player-wrapper {
+    margin: 20px auto;  /* 自动边距实现水平居中 */
+    padding: 40px 130px 40px 130px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* 轻微的阴影为布局添加深度 */
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    text-align: center;
+    padding: 8px;
+    border: none; /* 移除单元格的边框 */
+}
+
+thead {
+    background-color: #f4f4f4;
+}
+
+a {
+    color: #06C;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+img {
+    display: block;
+    margin: auto;
+}
+
+.team-wrapper,
+.player-wrapper {
+    text-align: center; /* 居中标题 */
+    background-color: transparent;
+    background: white;
+    margin: 20px 0 0 0;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    width: 100%;  /* 调整宽度为视口宽度的40%，根据需要调整 */
+    min-height: 60%;  /* 设置最小高度，确保内容适当显示 */
+    justify-content: center;  /* 水平居中内容 */
+    align-items: center;  /* 垂直居中内容 */
+    box-sizing: border-box;  /* 边框和内边距不再增加宽高 */
+    background: rgba(0, 0, 0, 0.05);  /* 轻微调整背景透明度提高可读性 */
+    backdrop-filter: blur(10px);  /* 轻微减少模糊效果以提高文字清晰度 */
+    -webkit-backdrop-filter: blur(10px);  /* 同上，适用于Webkit浏览器 */
+}
+
+.team-wrapper h2,
+.player-wrapper h2 {
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+.teams-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around; /* 均匀分布卡片 */
+    gap: 10px; /* 卡片之间的间隔 */
+}
+
+.team-card {
+    display: flex;
+    background: linear-gradient(315deg, rgba(92, 184, 92, 0.5), rgba(49, 176, 213, 0.5));
+    background-size: cover;
+    flex-direction: column; /* 垂直排列内容 */
+    align-items: center; /* 居中对齐图片和文本 */
+    width: calc(20% - 10px); /* 一行五个卡片 */
+    margin: 5px; /* 卡片的外边距 */
+    padding: 10px; /* 卡片的内边距 */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* 卡片阴影 */
+}
+
+.team-card img {
+    margin-bottom: 5px; /* 图片和链接之间的间隔 */
+}
+
+.team-card a {
+    color: #0645ad; /* 链接颜色 */
+    text-decoration: none; /* 去掉下划线 */
+}
+
+.team-card a:hover {
+    text-decoration: underline; /* 鼠标悬停时下划线 */
+}
+
+.player-wrapper {
+    background-color: transparent;
+    text-align: center;
+}
+
+.player-wrapper h2 {
+    font-size: 30px;
+}
+
+.players-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;  /* 均匀分布每个卡片，并在行间提供空间 */
+    padding: 10px;
+}
+
+.player-card {
+    display: flex;
+    background: linear-gradient(315deg, rgba(92, 184, 92, 0.5), rgba(49, 176, 213, 0.5));
+    background-size: cover;
+    flex-direction: column; /* 垂直排列内容 */
+    align-items: center; /* 居中对齐图片和文本 */
+    width: calc(20% - 10px); /* 一行五个卡片 */
+    margin: 5px; /* 卡片的外边距 */
+    padding: 10px; /* 卡片的内边距 */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* 卡片阴影 */
+}
+
+.player-card img {
+    margin-bottom: 5px;  /* 图片与名称之间的间隔 */
+}
+
+.player-card a {
+    color: #06C;  /* 链接颜色 */
+    text-decoration: none;  /* 移除下划线 */
+    font-size: 14px;  /* 文字大小 */
+}
+
+.player-card a:hover {
+    text-decoration: underline;  /* 鼠标悬停时添加下划线 */
+}
+

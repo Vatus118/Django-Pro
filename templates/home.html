@@ -179,5 +179,43 @@
             {% endfor %}
         </table>
     </div>
+    <div class="cards-wrapper">
+        <div class="card">
+            <div class="photo">
+                <img src="{% static 'img/halande.png' %}">
+            </div>
+            <h1>进攻之最</h1>
+            <h2>Ering Braut Haaland</h2>
+            <p>射门次数：104 进球总数：21</p>
+            <a href="{% url 'player_detail' 310 %}">了解更多</a>
+        </div>
+        <div class="card">
+            <div class="photo">
+                <img src="{% static 'img/paliniya.png' %}">
+            </div>
+            <h1>抢断之最</h1>
+            <h2>Joao Palhinha</h2>
+            <p>拼抢成功：240 抢断数：138</p>
+            <a href="{% url 'player_detail' 1207 %}">了解更多</a>
+        </div>
+        <div class="card">
+            <div class="photo">
+                <img src="{% static 'img/bulunuo.png' %}">
+            </div>
+            <h1>组织之最</h1>
+            <h2>Bruno Fernandes</h2>
+            <p>传中球：212 关键传球：108</p>
+            <a href="{% url 'player_detail' 713 %}">了解更多</a>
+        </div>
+        <div class="card">
+            <div class="photo">
+                <img src="{% static 'img/madingneisi.png' %}">
+            </div>
+            <h1>守门之最</h1>
+            <h2>Emiliano Martinez</h2>
+            <p>高空出击：39 出击成功：35</p>
+            <a href="{% url 'player_detail' 310 %}">了解更多</a>
+        </div>
+    </div>
 </body>
 </html>

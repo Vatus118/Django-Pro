@@ -14,10 +14,6 @@ from django.contrib.auth.models import User
 # Create your views here.
 # 第一个位子是视图函数的request参数，第二个参数位是html文件路径
 
-def user_list(request):
-    return render(request, "user_list.html")
-
-
 def register(request):
     if request.method == 'GET':
         return render(request, 'register.html')
@@ -143,6 +139,8 @@ def get_match_details(request, match_id):
     guestteam = match_details.guestteam
     hostteamname = Team.objects.get(shortname=hostteam).name
     guestteamname = Team.objects.get(shortname=guestteam).name
+    hostchinaname = Team.objects.get(shortname=hostteam).chinaname
+    guestchinaname = Team.objects.get(shortname=guestteam).chinaname
     hostfile = Standing.objects.get(name=hostteamname)
     guestfile = Standing.objects.get(name=guestteamname)
     host_players = Player.objects.filter(teamname=hostteamname)
@@ -154,7 +152,9 @@ def get_match_details(request, match_id):
         "guestfile": guestfile,
         "host_players": host_players,
         "guest_players": guest_players,
-        "status": status
+        "status": status,
+        "hostchinaname": hostchinaname,
+        "guestchinaname": guestchinaname
     })
 
 

@@ -23,7 +23,7 @@ body {
 </head>
 
 <body>
-    <div style="text-align:center">
+    <div class="img-container" style="text-align:center">
         <img src='{{ img.icon_filename }}' style="width: 200px; height: 200px">
         <h1>{{Team.name}}</h1>
     </div>
@@ -75,6 +75,7 @@ body {
         <table>
           <tr>
               <th>id</th>
+              <th>头像</th>
               <th>姓名</th>
               <th>中文名</th>
               <th>位置</th>
@@ -87,6 +88,7 @@ body {
         {% for Player in players %}
           <tr>
               <td>{{ Player.playerid }}</td>
+              <td><img src="{{ Player.icon_filename }}" alt="{{ Player.icon_filename }}" style="width: 40px; height: 40px"></td>
               <td><a href="{% url 'player_detail' Player.playerid %}">{{ Player.name }}</a></td>
               <td>{{ Player.chinaname }}</td>
               <td>{{ Player.position }}</td>

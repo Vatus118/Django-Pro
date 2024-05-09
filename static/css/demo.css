@@ -18,6 +18,53 @@
     font-family: Butler_Light;
 }
 
+.img-container {
+    margin: 30px 0 20px 0;
+}
+
+#Match,
+#Player {
+    width: 50%; /* 或根据需要调整宽度，保持响应式 */
+    margin: auto; /* 水平居中这个区域 */
+    padding: 20px 0; /* 添加一些垂直间距 */
+    font-family: Arial, sans-serif; /* 设定字体风格 */
+}
+
+#Match h2,
+#Player h2 {
+    text-align: center; /* 将标题“赛程”居中显示 */
+    margin-bottom: 20px; /* 在标题和表格之间添加一些空间 */
+    margin-top: 30px;
+}
+
+table {
+    width: 100%; /* 表格宽度为容器的100% */
+    border-collapse: collapse; /* 边框合并 */
+    margin-bottom: 20px; /* 表格下方留出一些空间 */
+}
+
+th, td {
+    border: 1px solid #ccc; /* 给表头和单元格添加边框 */
+    padding: 10px; /* 单元格内边距 */
+    text-align: center; /* 单元格内容居中显示 */
+    font-size: 16px;
+}
+
+th {
+    background-color: transparent; /* 表头背景颜色 */
+}
+
+a {
+    color: #0645ad; /* 链接颜色 */
+    text-decoration: none; /* 移除下划线 */
+}
+
+a:hover {
+    text-decoration: underline; /* 鼠标悬停时添加下划线 */
+}
+
+
+
 #nav {
     position: relative;
     border: none;
@@ -76,21 +123,49 @@ tr:hover {background-color:#f5f5f5;}
 }
 
 #Team {
-    width: 100%;        /* 根据需要设置宽度 */
-    margin: auto;       /* 自动边距以居中容器 */
     text-align: center; /* 文本居中对齐 */
-    padding: 20px;      /* 添加一些内边距 */
-    box-sizing: border-box; /* 边框和内边距包含在宽度内 */
+    background: white;
+    margin: 20px 0 0 0;
+    padding: 10px 10px 10px 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    width: 100%;
+    min-height: 60%;  /* 设置最小高度，确保内容适当显示 */
+    justify-content: center;  /* 水平居中内容 */
+    align-items: center;  /* 垂直居中内容 */
+    box-sizing: border-box;  /* 边框和内边距不再增加宽高 */
+    background: rgba(0, 0, 0, 0.05);  /* 轻微调整背景透明度提高可读性 */
+    backdrop-filter: blur(10px);  /* 轻微减少模糊效果以提高文字清晰度 */
+    -webkit-backdrop-filter: blur(10px);  /* 同上，适用于Webkit浏览器 */
+}
+
+#Match,
+#Player {
+    text-align: center; /* 文本居中对齐 */
+    background: white;
+    margin: 20px 0 0 0;
+    padding: 10px 270px 10px 270px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    width: 100%;
+    min-height: 60%;  /* 设置最小高度，确保内容适当显示 */
+    justify-content: center;  /* 水平居中内容 */
+    align-items: center;  /* 垂直居中内容 */
+    box-sizing: border-box;  /* 边框和内边距不再增加宽高 */
+    background: rgba(0, 0, 0, 0.05);  /* 轻微调整背景透明度提高可读性 */
+    backdrop-filter: blur(10px);  /* 轻微减少模糊效果以提高文字清晰度 */
+    -webkit-backdrop-filter: blur(10px);  /* 同上，适用于Webkit浏览器 */
 }
 
 #Team h2 {
-    margin-top: 0; /* 移除h2的上边距 */
+    font-size: 30px;
+    margin-top: 20px;
+    margin-bottom: 20px;
     color: #ffffff;   /* 设置文字颜色，根据需要调整 */
-    font-size: 24px; /* 字体大小 */
 }
 
 #Team p {
     color: #ffffff; /* 段落文字颜色 */
-    margin: 10px 0; /* 段落间距 */
+    margin: 15px 0; /* 段落间距 */
     font-size: 16px; /* 字体大小 */
 }
