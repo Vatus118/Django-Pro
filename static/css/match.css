@@ -1,0 +1,370 @@
+@font-face {
+    font-family: Butler_Light;
+    font-weight: 700;
+    src: url(../asset/font/Butler_Light.otf) format("truetype");
+    text-rendering: optimizeLegibility;
+}
+
+@font-face {
+    font-family: Butler_Black;
+    font-weight: 700;
+    src: url(../asset/font/Butler_Black.otf) format("truetype");
+    text-rendering: optimizeLegibility;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Butler_Light;
+}
+
+body {
+    background: linear-gradient(315deg, #28a4c9, #9faff8 );
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+}
+
+#card-section {
+    background: white;
+    margin: 20px 0 0 0;
+    padding: 10px 30px 10px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    width: 100%;  /* 调整宽度为视口宽度的40%，根据需要调整 */
+    min-height: 60%;  /* 设置最小高度，确保内容适当显示 */
+    justify-content: center;  /* 水平居中内容 */
+    align-items: center;  /* 垂直居中内容 */
+    box-sizing: border-box;  /* 边框和内边距不再增加宽高 */
+    background: rgba(0, 0, 0, 0.05);  /* 轻微调整背景透明度提高可读性 */
+    backdrop-filter: blur(10px);  /* 轻微减少模糊效果以提高文字清晰度 */
+    -webkit-backdrop-filter: blur(10px);  /* 同上，适用于Webkit浏览器 */
+}
+
+#main {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#click-section {
+    width: 35%;
+    height: 100%;
+    padding: 20px 0;
+    position: relative;
+}
+
+#drawerboxes {
+    margin-left: 10%;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+#drawerboxes::before {
+    content: "";
+    width: 8px;
+    height: 94%;
+    position: absolute;
+    left: -10px;
+    top: 3%;
+    z-index: 120;
+}
+
+.drawerbox {
+    height: calc(100% / 5.5);
+    width: 70%;
+    position: relative;
+    z-index: 100;
+    transform: translateX(-70%);
+    transition: transform .5s ease-in-out;
+}
+
+.drawerbox.active {
+    transform: translateX(0);
+}
+
+.drawer-btn {
+    width: 100%;
+    height: 100%;
+    font: 800 30px '';
+    background-color: rgb(175, 190, 255);
+    border: none;
+    transition: background-color .5s ease-in-out;
+    color: #ffffff00;
+}
+
+.drawer-btn.active {
+    background: linear-gradient(315deg, #9faff8, #9acfea);
+    background-size: cover;
+    color: rgb(70, 100, 180);
+}
+
+.drawer-btn:hover {
+    cursor: pointer;
+}
+
+.drawer-head {
+    position: absolute;
+    color: rgb(255, 255, 255);
+    font-size: 200px;
+    font-weight: 700;
+    right: -38px;
+    top: calc(50% - 135px);
+    text-shadow: 2px -1px 8px rgba(250, 80, 193, 0.323);
+}
+
+#slide-section {
+    position: relative;
+    height: 100%;
+    width: 65%;
+    display: flex;
+    justify-content: center;
+    padding: 0 20px;
+    background: linear-gradient(to right bottom,
+    rgba(255, 255, 255, .6),
+    rgba(255, 255, 255, .3),
+    rgba(255, 255, 255, .2));
+    backdrop-filter: blur(11px);
+}
+
+#slide-bar {
+    position: absolute;
+    top: 10%;
+    left: 40px;
+    height: 80%;
+    width: 1px;
+    background-color: rgb(223, 223, 223);
+}
+
+#bar {
+    position: absolute;
+    height: calc(100% / 4);
+    width: 5px;
+    top: 0;
+    left: -1.2px;
+    background-color: rgb(175, 190, 255);
+    transition: transform .5s ease-in-out;
+}
+
+#card-section {
+    height: 100%;
+    width: 80%;
+    overflow: hidden;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    padding: 10% 0;
+    color: white;
+    font-size: 30px;
+    transition: transform .5s ease-in-out;
+}
+
+.card-small-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    padding-bottom: min(5%, 10px);
+    color: rgb(70, 100, 180);
+}
+
+.team-info .team h1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    font-weight: 700;
+    padding-bottom: min(20%, 40px);
+    color: rgb(70, 100, 180);
+}
+
+.team-info {
+    display: flex;
+    justify-content: center; /* 水平居中所有元素 */
+    align-items: center; /* 垂直居中所有元素 */
+    margin: 15px 0 25px 0;
+    gap: 50px; /* 设置元素之间的间距 */
+}
+
+.team h1, .team h2 {
+    margin: 10px 0; /* 给标题和得分添加上下间距 */
+    text-align: center; /* 文字居中 */
+}
+
+.team-logo {
+    width: 100px;
+    height: 100px;
+    display: block; /* 确保图片独占一行 */
+    margin: 0 auto; /* 图片居中显示 */
+}
+
+.team-info .team h2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    font-weight: 700;
+    padding-bottom: min(20%, 40px);
+    color: rgb(70, 100, 180);
+}
+
+.card-content {
+    font-size: 24px;
+    font-weight: 400;
+    color: rgb(70, 100, 180);
+    margin-bottom: 60px;
+}
+
+.card-content table {
+    width: 100%; /* 表格宽度为容器的100% */
+    border-collapse: collapse; /* 边框合并，看起来更紧凑 */
+}
+
+.card-content .primary {
+    font-size: 30px;
+    display: flex; /* 设置为 Flex 布局 */
+    justify-content: center; /* 水平居中所有元素 */
+    align-items: center; /* 垂直居中所有元素 */
+    margin-bottom: 15px;
+}
+
+.card-content .winorlose {
+    font-size: 30px;
+    display: flex; /* 设置为 Flex 布局 */
+    margin-bottom: 15px;
+}
+
+.card-date p {
+    font-size: 20px;
+}
+
+.card-content th, .card-content td {
+    text-align: left; /* 文本左对齐 */
+    vertical-align: top; /* 垂直对齐方式 */
+}
+
+.horizontal-row {
+    margin-bottom: 10px;
+    display: flex; /* 设置为 Flex 布局 */
+    justify-content: center; /* 水平居中所有元素 */
+    align-items: center; /* 垂直居中所有元素 */
+}
+
+.row-internal {
+    margin: 0 0 0 40px;
+}
+
+.horizontal-row-final {
+    display: flex; /* 设置为 Flex 布局 */
+    justify-content: center; /* 水平居中所有元素 */
+    align-items: center; /* 垂直居中所有元素 */
+}
+
+.progress-container {
+    margin: 20px 2px 40px 2px;
+    width: 100%;
+    background-color: #ddd;
+}
+
+.progress-bar {
+    display: flex;
+    width: 100%;
+    background: #eee;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.progress {
+    height: 20px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+
+.crystal {
+    background-color: #ff6347; /* 水晶般 */
+}
+
+.rare {
+    background-color: #ffda47; /* 珍稀 */
+}
+
+.common {
+    background-color: #71a6f9; /* 普通 */
+}
+
+.scrollable {
+    overflow-x: auto;  /* 如果内容过多，则允许滚动 */
+    padding: 10px;
+}
+
+.player-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+}
+
+.player-card {
+    flex: 1 0 32%; /* 确保每行显示4名球员，每个卡片留有一些间隙 */
+    box-sizing: border-box;
+    padding: 10px; /* 在卡片之间添加一些间隙 */
+    display: flex;
+    flex-direction: column; /* 将内容垂直堆叠 */
+    align-items: center; /* 水平居中对齐子项 */
+    text-align: center;
+}
+
+.player-photo {
+    margin-bottom: 5px; /* 在图片和名字之间添加一些间隙 */
+}
+
+.player-name {
+    font-size: 12px; /* 根据需要调整字体大小 */
+    overflow: hidden; /* 防止内容溢出 */
+    white-space: nowrap; /* 保持名字在一行 */
+    text-overflow: ellipsis; /* 超出部分显示省略号 */
+}
+
+.teamname {
+    margin: 0 10px 30px 20px;
+    display: flex;        /* 启用 Flexbox */
+    align-items: center;  /* 垂直居中对齐内容 */
+    gap: 10px;            /* 在图像和文本之间添加一些间隙 */
+}
+
+.team-photo {
+    width: 50px;          /* 图像宽度 */
+    height: 50px;         /* 图像高度 */
+}
+
+.teamname p {
+    color: #0f0f0f; /* 文字颜色 */
+    margin: 0; /* 移除默认的段落外边距 */
+    white-space: nowrap; /* 防止名字换行 */
+}
+
+.card-img {
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+}
+
+.card-img img {
+    width: 100%;
+}

@@ -4,51 +4,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="searchview" content="width=device-width, initial-scale=1.0">
-    <title>See the results!</title>
+    <title>Search result!</title>
     <link rel="stylesheet" href="{% static 'css/search.css' %}">
 </head>
 <body>
     <div class="team-wrapper">
         <h2>球队搜索结果</h2>
-        <table>
-            <div class="table_title">
-                <tr>
-                    <th>排名</th>
-                    <th>图标</th>
-                    <th>球队</th>
-                    <th>积分</th>
-                </tr>
-            </div>
+        <div class="teams-grid">
             {% for team in teams %}
-            <tr>
-                <td>{{ team.teamid }}</td>
-                <td><img src="{{ team.icon_filename }}" alt="{{ team.icon_filename }}" style="width:50px; height:50px;"></td>
-                <td><a href="{% url 'team_detail' team.teamid %}">{{ team.name }}</a></td>
-                <td>{{ team.points }}</td>
-            </tr>
+            <div class="team-card">
+                <img src="{{ team.icon_filename }}" alt="Team Icon" style="width:50px; height:50px;">
+                <div class="team-info">
+                    <a href="{% url 'team_detail' team.teamid %}">{{ team.name }}</a>
+                    <p>积分：{{ team.points }}</p>
+                </div>
+            </div>
             {% endfor %}
-        </table>
+        </div>
     </div>
     <div class="player-wrapper">
         <h2>球员搜索结果</h2>
-        <table>
-            <div class="table_title">
-                <tr>
-                    <th>id</th>
-                    <th>头像</th>
-                    <th>球员名</th>
-                    <th>身价</th>
-                </tr>
-            </div>
+        <div class="players-grid">
             {% for player in players %}
-            <tr>
-                <td>{{ player.playerid }}</td>
-                <td><img src="{{ player.icon_filename }}" alt="{{ team.icon_filename }}" style="width:50px; height:50px;"></td>
-                <td><a href="{% url 'player_detail' player.playerid %}">{{ player.name }}</a></td>
-                <td>{{ player.prize }}</td>
-            </tr>
+            <div class="player-card">
+                <img src="{{ player.icon_filename }}" alt="Player Icon" style="width:50px; height:50px;">
+                <a href="{% url 'player_detail' player.playerid %}">{{ player.name }}</a>
+            </div>
             {% endfor %}
-        </table>
+        </div>
     </div>
 </body>
 </html>

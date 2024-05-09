@@ -14,35 +14,42 @@
             <h2>双方球员数据对比</h2>
         </div>
         <div class="compare-wrapper">
-            <h2>球员基础数据</h2>
-            <div class="player-info">
-                <img src="{{ first_player.icon_filename }}" alt="first_player.icon_filename" style="width:120px; height:120px;">
-                <h2>被对比球员：{{ first_player.name }}</h2>
-                <p>中文名：{{ first_player.chinaname }}</p>
-                <p>位置：{{ first_player.position }}</p>
-                <p>球队：{{ first_player.teamname }}</p>
-                <p>身价：{{ first_player.prize }}</p>
-            </div>
-            <div>
-                <img src="{% static 'img/' %}VS logo.png" alt="img" style="width:120px; height:120px;">
-            </div>
-            <div>
-                <img src='{{ second_player.icon_filename }}' alt='second_player.icon_filename' style='width:120px; height:120px;'>
-                <h2>对比球员：{{ second_player.name }}</h2>
-                <p>中文名：{{ second_player.chinaname }}</p>
-                <p>位置：{{ second_player.position }}</p>
-                <p>球队：{{ second_player.teamname }}</p>
-                <p>身价：{{ second_player.prize }}</p>
+            <h2 class="primary-title">球员基础数据</h2>
+            <div class="player-compare">
+                <div class="player-info">
+                    <img src="{{ first_player.icon_filename }}" alt="{{ first_player.name }}" style="width:120px; height:120px;">
+                    <div class="player-details">
+                        <h2 class="player-title">被对比球员：{{ first_player.name }}</h2>
+                        <p>中文名：{{ first_player.chinaname }}</p>
+                        <p>位置：{{ first_player.position }}</p>
+                        <p>球队：{{ first_player.teamname }}</p>
+                        <p>身价：{{ first_player.prize }}</p>
+                    </div>
+                </div>
+                <div class="vs-logo">
+                    <img src="{% static 'img/VS logo.png' %}" alt="VS" style="width:120px; height:120px;">
+                </div>
+                <div class="player-info">
+                    <img src="{{ second_player.icon_filename }}" alt="{{ second_player.name }}" style="width:120px; height:120px;">
+                    <div class="player-details">
+                        <h2 class="player-title">对比球员：{{ second_player.name }}</h2>
+                        <p>中文名：{{ second_player.chinaname }}</p>
+                        <p>位置：{{ second_player.position }}</p>
+                        <p>球队：{{ second_player.teamname }}</p>
+                        <p>身价：{{ second_player.prize }}</p>
+                    </div>
+                </div>
             </div>
         </div>
         <div id="Charts" class="chart-container">
-            <div id="prize" class="chart-wrapper" style="height: 400px; width: 1500px;"></div>  
+            <div id="prize" class="chart-wrapper" style="height: 200px; width: 1270px;"></div>  
             <script type="text/javascript">
                 var myChart = echarts.init(document.getElementById('prize'));
                 var option = {
                         title: {
                             text: '双方身价数据对比',
-                            left: 'center',
+                            top: 5,  
+                            left: 50
                         },
                         tooltip: {
                             trigger: 'axis',
@@ -76,6 +83,7 @@
                                 name: '{{ first_player.name }}',
                                 type: 'bar',
                                 stack: '总量',
+                                barWidth: 50, // 设置柱状图的宽度为20像素
                                 label: {
                                     show: true,
                                     position: 'inside',
@@ -92,6 +100,7 @@
                                 name: '{{ second_player.name }}',
                                 type: 'bar',
                                 stack: '总量',
+                                barWidth: 50, // 设置柱状图的宽度为20像素
                                 label: {
                                     show: true,
                                     position: 'inside',
@@ -108,13 +117,14 @@
                     };
                 myChart.setOption(option);
             </script>
-            <div id="matchtime" class="chart-wrapper" style="height: 400px; width: 1500px;"></div> 
+            <div id="matchtime" class="chart-wrapper" style="height: 200px; width: 1270px;"></div> 
             <script type="text/javascript">
                 var myChart = echarts.init(document.getElementById('matchtime'));
                 var option = {
                         title: {
                             text: '双方总比赛时间数据对比',
-                            left: 'center',
+                            top: 5,  
+                            left: 50
                         },
                         tooltip: {
                             trigger: 'axis',
@@ -148,6 +158,7 @@
                                 name: '{{ first_player.name }}',
                                 type: 'bar',
                                 stack: '总量',
+                                barWidth: 50, // 设置柱状图的宽度为20像素
                                 label: {
                                     show: true,
                                     position: 'inside',
@@ -164,6 +175,7 @@
                                 name: '{{ second_player.name }}',
                                 type: 'bar',
                                 stack: '总量',
+                                barWidth: 50, // 设置柱状图的宽度为20像素
                                 label: {
                                     show: true,
                                     position: 'inside',
@@ -183,13 +195,14 @@
         </div>
         <div class="chart-container">
             {% if first_player.position == 'Midfielder' %}
-                <div id="Midfielder" class="chart-wrapper" style="height: 400px; width: 1500px;"></div>  
+                <div id="Midfielder" class="chart-wrapper" style="height: 600px; width: 1270px;"></div>  
                 <script type="text/javascript">
                     var myChart = echarts.init(document.getElementById('Midfielder'));
                     var option = {
                             title: {
                                 text: '双方各项数据对比(Midfielder标准)',
-                                left: 'center',
+                                top: 5,  
+                                left: 50
                             },
                             tooltip: {
                                 trigger: 'axis',
@@ -274,13 +287,14 @@
                     myChart.setOption(option);
                 </script>
             {% elif first_player.position == 'Forward' %}
-                <div id="Forward" class="chart-wrapper" style="height: 400px; width: 1500px;"></div>  
+                <div id="Forward" class="chart-wrapper" style="height: 600px; width: 1270px;"></div>  
                 <script type="text/javascript">
                     var myChart = echarts.init(document.getElementById('Forward'));
                     var option = {
                             title: {
                                 text: '双方各项数据对比(Forward标准)',
-                                left: 'center',
+                                top: 5,  
+                                left: 50
                             },
                             tooltip: {
                                 trigger: 'axis',
@@ -366,14 +380,15 @@
                         };
                     myChart.setOption(option);
                 </script>
-            {% elif first_player.position == 'Denfender' %}
-                <div id="Forward" class="chart-wrapper" style="height: 400px; width: 1500px;"></div>  
+            {% elif first_player.position == 'Defender' %}
+                <div id="Defender" class="chart-wrapper" style="height: 600px; width: 1270px;"></div>  
                 <script type="text/javascript">
-                    var myChart = echarts.init(document.getElementById('Denfender'));
+                    var myChart = echarts.init(document.getElementById('Defender'));
                     var option = {
                             title: {
-                                text: '双方各项数据对比(Denfender标准)',
-                                left: 'center',
+                                text: '双方各项数据对比(Defender标准)',
+                                top: 5,  
+                                left: 50
                             },
                             tooltip: {
                                 trigger: 'axis',
@@ -460,13 +475,14 @@
                     myChart.setOption(option);
                 </script>
             {% elif first_player.position == 'Goalkeeper' %}
-                <div id="Goalkeeper" class="chart-wrapper" style="height: 400px; width: 1500px;"></div>  
+                <div id="Goalkeeper" class="chart-wrapper" style="height: 600px; width: 1270px;"></div>  
                 <script type="text/javascript">
                     var myChart = echarts.init(document.getElementById('Goalkeeper'));
                     var option = {
                             title: {
                                 text: '双方各项数据对比(Goalkeeper标准)',
-                                left: 'center',
+                                top: 5,  
+                                left: 50
                             },
                             tooltip: {
                                 trigger: 'axis',
@@ -552,7 +568,7 @@
         </div>
         <div class="chart-container">
             {% if first_player.position == 'Goalkeeper' %}
-                <div  id="radar-keeper" class="chart-wrapper" style="height: 400px; width: 1500px;"></div>  
+                <div  id="radar-keeper" class="chart-wrapper" style="height: 500px; width: 1270px;"></div>  
                 <script type="text/javascript">
                     var myChart = echarts.init(document.getElementById('radar-keeper'));
                     var option = {
@@ -606,14 +622,14 @@
                     myChart.setOption(option);
                 </script>
                 {% else %}
-                <div  id="radar-else" class="chart-wrapper" style="height: 400px; width: 1500px;"></div>  
+                <div  id="radar-else" class="chart-wrapper" style="height: 500px; width: 1270px;"></div>  
                 <script type="text/javascript">
                     var myChart = echarts.init(document.getElementById('radar-else'));
                     var option = {
                           title: {
-                            text: '双方综合数据对比',
+                            text: '双方综合数据对比(正常标准)',
                             top: 5,  
-                            left: 'center'  
+                            left: 50  
                           },
                           legend: {
                             data: ['{{ first_player.name }}', '{{ second_player.name }}'],

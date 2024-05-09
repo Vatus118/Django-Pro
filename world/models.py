@@ -24,7 +24,7 @@ class Team(models.Model):
 class Player(models.Model):
     '球员建表'
     playerid = models.IntegerField(verbose_name="球员ID", primary_key=True)
-    icon_filename = models.CharField(verbose_name="头像", max_length=160, default='default_icon.png')
+    icon_filename = models.CharField(verbose_name="头像", max_length=200, default='default_icon.png')
     name = models.CharField(verbose_name="球员名", max_length=50)
     chinaname = models.CharField(verbose_name="球员中文名", max_length=40, default="none")
     position = models.CharField(verbose_name="位置", max_length=20, default="none")
@@ -146,8 +146,8 @@ class Details(models.Model):
     guestwin = models.CharField(max_length=20, default=0)
     hostgoal = models.IntegerField(default=0)
     guestgoal = models.IntegerField(default=0)
-    hostcontrol = models.IntegerField(default=0)
-    guestcontrol = models.IntegerField(default=0)
+    hostcontrol = models.CharField(max_length=20, default=0)
+    guestcontrol = models.CharField(max_length=20, default=0)
     hostatk = models.IntegerField(default=0)
     guestatk = models.IntegerField(default=0)
     hostdanatk = models.IntegerField(default=0)
