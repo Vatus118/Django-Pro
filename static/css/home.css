@@ -17,3 +17,329 @@
     margin: 0;
     font-family: Butler_Light;
 }
+
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url(../img/yingchao.png);
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: #fff;
+    background-color: rgba(173, 216, 230, 0.5); /* 添加50%的透明度 */
+}
+
+@font-face {
+        font-family: "iconfont";
+        src: url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAAKsAAsAAAAABnAAAAJeAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCCcAp8gRgBNgIkAwgLBgAEIAWEbQcwG74FEdWTB2Q/DuyY8FcY0Z8Dxdjg34Pn37W3+5LMb0qoAFARg6qrQ14wdv8cv+DJEUhAt3rM2ozizqgIRZOMB/9VUzbQw+RyXwLAiMNp87wLZP55l8sYg8aaNKmL4jiQAhxrUWRFEnnD2AUu4TgECCKRfKSppWsIi8EaJ4Bsra/OY3NeDIYlLIKvZqlBbnGw6ky9hJvw+/K7VCwoHI1V0rfSvETdt0I7Re96u0z5BHwgoNUOoIF8wIAM1UZ70Aija4KihlTYV6HAt8zzfAuyVyPC/jorPwSAeCi6J7EruVVuBYCB7pAK1I66DXRQSMjOw92YmAfncSPv7XfvRt+8GX79eujt25FIkBVAPryltjj3cfLjfy+Snz971t7+ol0duO6BOlR+VwU013/AJ6kbh9r99cv15Bq2aDf9HeoA8HYNehcBBCrCyh7Nhlf9t8EGgE8hozuU9LOD3b9N4D+JezYYXWqZlVHFtUlFKvr8ZUEEAR7YGcXXsbrYm0oKlthbsweQkEJjSScaaj4cgimHD0stgsijdXUw0WyjERMI5HIEIETghyKMZ9BE8IpoqF/gEMdf+IgQjSBGJHrLYDJFW1yjojOM1P9pGeRkx2ouKrxhCnunWWnIeEH9EqAyK4qJFid0jhn+M1VmTKxyUANOw74LXSorBstms6vOc657UzbIEbmoUdEZRur/tAxyst/eXOnzN0xh77Slrsb7gvqldyqzogexVZ296u7lFf+ZKjMmVjmoAYOw70JX/aAVg2XziPBV53Yz7qvK1tccX7cDCIosvYrtfmnk8xJ8kCgCAAAA') format('woff2');
+    }
+
+.iconfont {
+    font-family: "iconfont" !important;
+    font-size: 20px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-sousuo:before {
+    content: "\e62e";
+}
+
+.search-box {
+    position: fixed;
+    top: 40px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background-color: #262626;
+    border-radius: 60px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    transition: 0.5s;
+}
+
+.search-box form {
+    display: flex; /* 确保form也是flex布局，以与.search-box的现有样式保持一致 */
+    width: 100%; /* 让form占满整个.search-box */
+    margin: 0; /* 移除默认的外边距 */
+    padding: 0; /* 移除默认的内边距 */
+}
+
+.key {
+    flex-shrink: 1;
+    flex-grow: 1;
+    width: 0;
+}
+
+.key input {
+    width: calc(100% - 40px);
+    height: 40px;
+    padding: 10px 20px;
+    font-size: 8px;
+    color: #fff;
+    background: none;
+    border: none;
+    outline: none;
+}
+
+.key input:focus {
+    border: none;
+    outline: none;
+}
+
+.key input::-webkit-input-placeholder {
+    color: #999;
+}
+
+.bt {
+    flex-shrink: 0;
+    flex-grow: 0;
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bt button {
+    padding: 10px;
+    border-radius: 100%;
+    text-decoration: none;
+    background-color: #262626;
+    color: #fff;
+    transition: 0.5s;
+}
+
+.search-box.active {
+    width: 200px;
+}
+
+.search-box.active .bt button {
+    background-color: var(--background-color);
+}
+
+
+.shell {
+    width: 100%;
+    position: relative;
+    padding: 80px 0;
+    transition: 0.3s ease 0s;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.shell:before {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(99, 99, 99, 0.8);
+    content: "";
+}
+
+.header {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 80px;
+    position: relative;
+}
+
+.title {
+    color: #fff;
+    font-size: 46px;
+    font-weight: normal;
+    margin: 0;
+}
+
+.timeline {
+    display: flex;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    flex-direction: column;
+    max-width: 700px;
+    position: relative;
+}
+
+.content-title {
+    font-weight: normal;
+    font-size: 66px;
+    margin: -10px 0 0 0;
+    transition: 0.4s;
+    padding: 0 10px;
+    box-sizing: border-box;
+    color: #fff;
+}
+
+.content-desc {
+    margin: 0;
+    font-size: 15px;
+    box-sizing: border-box;
+    color: rgba(255,255,255,0.7);
+    line-height: 25px;
+}
+
+.timeline:before {
+    position: absolute;
+    left: 50%;
+    width: 2px;
+    height: 100%;
+    margin-left: -1px;
+    content: "";
+    background: rgba(255,255,255,0.07);
+}
+
+.item {
+    padding: 40px 0;
+    opacity: 0.3;
+    filter: blur(2px);
+    transition: 0.5s;
+    box-sizing: border-box;
+    width: calc(50% - 40px);
+    display: flex;
+    position: relative;
+    transform: translateY(-80px);
+}
+
+.item:before {
+    content: attr(data-text);
+    letter-spacing: 3px;
+    width: 100%;
+    position: absolute;
+    color: rgba(255,255,255,0.5);
+    font-size: 13px;
+    border-left: 2px solid rgba(255,255,255,0.5);
+    top: 70%;
+    margin-top: -5px;
+    padding-left: 15px;
+    opacity: 0;
+    right: calc(-100% - 56px);
+    font: 900 20px '';
+    letter-spacing: 5px;
+}
+
+.item:nth-child(even) {
+    align-self: flex-end;
+}
+.item:nth-child(even):before {
+    right: auto;
+    text-align: right;
+    left: calc(-100% - 56px);
+    padding-left: 0;
+    border-left: none;
+    border-right: 2px solid rgba(255,255,255,0.5);
+    padding-right: 15px;
+}
+
+.item--active {
+    opacity: 1;
+    transform:translateY(0);
+    filter: blur(0px);
+}
+.item--active:before {
+    top: 50%;
+    transition: 0.3s all 0.2s;
+    opacity: 1;
+}
+.item--active .content-title {
+    margin: -50px 0 20px 0;
+}
+.img {
+    max-width: 100%;
+    box-shadow: 0 10px 15px rgba(0,0,0,0.4);
+}
+
+.subtitle {
+    color: rgba(255,255,255,0.5);
+    font-size: 16px;
+    letter-spacing: 5px;
+    margin: 10px 0 0 0;
+    font-weight: normal;
+}
+.footer {
+    padding: 95px 0;
+    text-align: center;
+}
+.footer a {
+    color: #999;
+    display: inline-block;
+}
+
+@media only screen and (max-width: 767px) {
+    .item {
+        align-self: baseline !important;
+        width: 100%;
+        padding: 0 30px 150px 80px;
+    }
+    .item:before {
+        left: 10px !important;
+        padding: 0 !important;
+        top: 50px;
+        text-align: center !important;
+        width: 60px;
+        border: none !important;
+    }
+    .item:last-child {
+        padding-bottom: 40px;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .timeline:before {
+        left: 40px;
+    }
+}
+
+table {
+    width: 100%;  /* 根据需要调整表格宽度 */
+    border-collapse: collapse; /* 确保边框合并，看起来更整洁 */
+}
+
+th, td {
+    text-align: center; /* 居中表格头和单元格内容 */
+    padding: 8px; /* 添加内边距，使内容不至于太拥挤 */
+}
+
+th {
+    background-color: #f2f2f2; /* 为表头添加背景色，可以换成其他颜色 */
+    border-bottom: 1px solid #ddd; /* 表头下方添加边框 */
+}
+
+.table_title {
+    background-color: #f2f2f2; /* 为标题部分设置背景色 */
+}
+
+.data-wrapper {
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin: 60px 250px 60px 250px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    min-height: 60%;  /* 设置最小高度，确保内容适当显示 */
+    justify-content: center;  /* 水平居中内容 */
+    align-items: center;  /* 垂直居中内容 */
+    box-sizing: border-box;  /* 边框和内边距不再增加宽高 */
+    background: rgba(0, 0, 0, 0.05);  /* 轻微调整背景透明度提高可读性 */
+    backdrop-filter: blur(10px);  /* 轻微减少模糊效果以提高文字清晰度 */
+    -webkit-backdrop-filter: blur(10px);  /* 同上，适用于Webkit浏览器 */
+}
+
+tr {
+    border-radius: 10px;
+}
+
+th {
+    color: #ffffff;  /* 设置文本颜色为白色 */
+}
+
+td {
+    color: white;
+}
+
+

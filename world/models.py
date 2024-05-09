@@ -134,8 +134,10 @@ class Standing(models.Model):
     clear = models.IntegerField(verbose_name="净胜球", default=0)
     points = models.IntegerField(verbose_name="积分", default=0)
 
+
 class Details(models.Model):
-    matchid = models.OneToOneField(to="Match", to_field="matchid", db_column='matchid', on_delete=models.CASCADE, primary_key=True)
+    matchid = models.OneToOneField(to="Match", to_field="matchid", db_column='matchid', on_delete=models.CASCADE,
+                                   primary_key=True)
     hostteam = models.CharField(max_length=10)
     guestteam = models.CharField(max_length=10)
     date = models.CharField(max_length=20)
@@ -162,3 +164,13 @@ class Details(models.Model):
     guestyellow = models.IntegerField(default=0)
     hostred = models.IntegerField(default=0)
     guestred = models.IntegerField(default=0)
+
+
+class Score(models.Model):
+    name = models.CharField(max_length=50, primary_key=True)
+    shoot = models.IntegerField(default=0)
+    passball = models.IntegerField(default=0)
+    physics = models.IntegerField(default=0)
+    dribble = models.IntegerField(default=0)
+    defensive = models.IntegerField(default=0)
+    discipline = models.IntegerField(default=0)

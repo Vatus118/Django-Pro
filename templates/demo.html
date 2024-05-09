@@ -4,21 +4,15 @@
 <head>
 <style>
 body {
-  font-size: 28px;
-}
-
-
-
-body{
     background-image: url({% static "img/" %}{{ team_id }}.png);
     background-attachment: fixed;
     background-size: cover;
     background-repeat: no-repeat;
     color: #fff;
+    font-size: 28px;
 }
-
 </style>
-    <title></title>
+    <title>Get the details!</title>
 </head>
 <head>
     <meta charset="UTF-8">
@@ -29,83 +23,100 @@ body{
 </head>
 
 <body>
+    <div style="text-align:center">
+        <img src='{{ img.icon_filename }}' style="width: 200px; height: 200px">
+        <h1>{{Team.name}}</h1>
+    </div>
+    <ul id="nav">
+            <li class="slide1"></li>
+            <li class="slide2"></li>
+            <li><a href="#Team">Introduce</a></li>
+            <li><a href="#Match">Match</a></li>
+            <li><a href="#Player">Player</a> </li>
+    </ul> 
 
-<div style="text-align:center">
-    <img src='{{ img.icon_filename }}'>
-    <h1>{{Team.name}}</h1>
-</div>
+    <div id="Team">
+        <h2>球队简介</h2>
+        <p>球队英文名：{{ Team.name }}</p>
+        <p>球队中文名：{{ Team.chinaname }}</p>
+        <p>球队名缩写：{{ Team.shortname }}</p>
+        <p>球队别名：{{ Team.othername }}</p>
+        <p>成立时间：{{ Team.foundtime }}</p>
+        <p>城市:{{ Team.city }}</p>
+        <p>主场：{{ Team.home }}</p>
+        <p>教练:{{ Team.coach }}</p>
+    </div>
 
-
-<ul>
-  <li><a class="active" href="#Team">简介</a></li>
-  <li><a href="#Match">赛程</a></li>
-  <li><a href="#Player">球员</a></li>
-</ul>
-
-<div id="Team">
-    <h2>球队简介</h2>
-    <p>球队英文名：{{ Team.name }}</p>
-    <p>球队中文名：{{ Team.chinaname }}</p>
-    <p>球队名缩写：{{ Team.shortname }}</p>
-    <p>球队别名：{{ Team.othername }}</p>
-    <p>成立时间：{{ Team.foundtime }}</p>
-    <p>城市:{{ Team.city }}</p>
-    <p>主场：{{ Team.home }}</p>
-    <p>教练:{{ Team.coach }}</p>
-</div>
-
-<div id="Match">
-    <h2>赛程</h2>
-    <table>
-      <tr>
-        <th>日期</th>
-        <th>主队</th>
-        <th>主队得分</th>
-        <th>客队得分</th>
-        <th>客队</th>
-        <th>赛况</th>
-      </tr>
-    {% for Match in matches %}
-      <tr>
-          <td><a href="{% url 'match_detail' Match.matchid %}">{{Match.date}}</a></td>
-          <td>{{Match.hostteamid.shortname}}</td>
-          <td>{{Match.hostgoal}}</td>
-          <td>{{Match.guestteamid.shortname}}</td>
-          <td>{{Match.guestgoal}}</td>
-          <td>{{ Match.status }}</td>
-      </tr>
-    {% endfor %}
-    </table>
-</div>
-
-<div id="Player">
-    <h2>球员</h2>
-    <table>
-      <tr>
-          <th>号码</th>
-          <th>姓名</th>
-          <th>中文名</th>
-          <th>位置</th>
-          <th>国籍</th>
-          <th>年龄</th>
-          <th>身高</th>
-          <th>体重</th>
-          <th>身价（百万欧）</th>
-      </tr>
-    {% for Player in players %}
-      <tr>
-          <td>{{ Player.num }}</td>
-          <td><a href="{% url 'player_detail' Player.playerid %}">{{ Player.name }}</a></td>
-          <td>{{ Player.chinaname }}</td>
-          <td>{{ Player.position }}</td>
-          <td>{{ Player.nation }}</td>
-          <td>{{ Player.age }}</td>
-          <td>{{ Player.height }}</td>
-          <td>{{ Player.weight }}</td>
-          <td>{{ Player.prize }}</td>
-      </tr>
-    {% endfor %}
-    </table>
-</div>
+    <div id="Match">
+        <h2>赛程</h2>
+        <table>
+          <tr>
+            <th>日期</th>
+            <th>主队</th>
+            <th>主队得分</th>
+            <th>客队得分</th>
+            <th>客队</th>
+            <th>赛况</th>
+          </tr>
+        {% for Match in matches %}
+          <tr>
+              <td><a href="{% url 'match_detail' Match.matchid %}">{{Match.date}}</a></td>
+              <td>{{Match.hostteamid.shortname}}</td>
+              <td>{{Match.hostgoal}}</td>
+              <td>{{Match.guestteamid.shortname}}</td>
+              <td>{{Match.guestgoal}}</td>
+              <td>{{ Match.status }}</td>
+          </tr>
+        {% endfor %}
+        </table>
+    </div>
+    <div id="Player">
+        <h2>球员</h2>
+        <table>
+          <tr>
+              <th>id</th>
+              <th>姓名</th>
+              <th>中文名</th>
+              <th>位置</th>
+              <th>国籍</th>
+              <th>年龄</th>
+              <th>身高</th>
+              <th>体重</th>
+              <th>身价（百万欧）</th>
+          </tr>
+        {% for Player in players %}
+          <tr>
+              <td>{{ Player.playerid }}</td>
+              <td><a href="{% url 'player_detail' Player.playerid %}">{{ Player.name }}</a></td>
+              <td>{{ Player.chinaname }}</td>
+              <td>{{ Player.position }}</td>
+              <td>{{ Player.nation }}</td>
+              <td>{{ Player.age }}</td>
+              <td>{{ Player.height }}</td>
+              <td>{{ Player.weight }}</td>
+              <td>{{ Player.prize }}</td>
+          </tr>
+        {% endfor %}
+        </table>
+    </div>
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+        $("#nav a").on("click", function () {
+            var position = $(this).parent().position();
+            var width = $(this).parent().width();
+            $("#nav .slide1").css({ opacity: 1, left: +position.left, width: width});
+        });
+        $("#nav a").on("mouseover", function () {
+            var position = $(this).parent().position();
+            var width = $(this).parent().width();
+            $("#nav .slide2").css({ opacity: 1, left: +position.left, width:width}).addClass("squeeze");
+        });
+        $("#nav a").on("mouseout", function () {
+            $("#nav .slide2").css({ opacity: 0}).removeClass("squeeze");
+        });
+        var currentWidth = $("#nav li:nth-of-type(3) a").parent("li").width();
+        var current = $("li:nth-of-type(3) a").position();
+        $("nav .slide1").css({ left: +current.left, width:currentWidth });
+</script>
 </html>

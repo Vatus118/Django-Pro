@@ -15,5 +15,165 @@
 * {
     padding: 0;
     margin: 0;
+    box-sizing: border-box;
     font-family: Butler_Light;
 }
+
+body {
+  background-image: url(../img/background-one.png);
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: #fff;
+}
+
+#nav {
+    position: relative;
+    border: none;
+    border-radius: 10em;
+    display: flex;
+    list-style: none;
+    background: #f5f5f5;
+    box-shadow: 20px 40px 40px #00000033;
+    padding: 10px 0;
+    margin: 20px 300px 50px;
+    justify-content: center;
+    align-items: center;
+}
+
+#nav li a {
+    position: relative;
+    font-size: 30px;
+    padding: 15px 15px;
+    border: none;
+    outline: none;
+    color: rgb(70,100,180);
+    display: inline-block;
+    text-decoration: none;
+    z-index: 3;
+}
+
+.slide1,
+.slide2 {
+    position: absolute;
+    display: inline-block;
+    height: 60px;
+    border-radius: 10em;
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1.05);
+}
+
+.slide1 {
+    background-color: rgb(170, 190, 255);
+    z-index: 2;
+}
+
+.slide2 {
+    opacity: 0;
+    background-color: rgba(170, 190,255, .5);
+    z-index: 1;
+    box-shadow: 0 0 20px #ffffffaa inset;
+}
+
+.squeeze {
+    transform: scale(0.9);
+}
+
+.content-wrapper {
+    display: grid;
+    justify-content: center; /* 水平居中 */
+    align-items: center; /* 垂直居中 */
+    grid-template-columns: 1fr;
+    grid-gap: 20px;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.Introduce-wrapper,
+.chart-wrapper,
+.data_wrapper {
+    background: white;
+    padding: 10px 80px 10px 80px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    width: 100%;  /* 调整宽度为视口宽度的40%，根据需要调整 */
+    min-height: 60%;  /* 设置最小高度，确保内容适当显示 */
+    justify-content: center;  /* 水平居中内容 */
+    align-items: center;  /* 垂直居中内容 */
+    box-sizing: border-box;  /* 边框和内边距不再增加宽高 */
+    background: rgba(0, 0, 0, 0.05);  /* 轻微调整背景透明度提高可读性 */
+    backdrop-filter: blur(10px);  /* 轻微减少模糊效果以提高文字清晰度 */
+    -webkit-backdrop-filter: blur(10px);  /* 同上，适用于Webkit浏览器 */
+}
+
+.chart-container {
+    display: grid;
+}
+
+.chart-wrapper {
+    width: 600px;  /* 你的图表宽度 */
+    height: 400px; /* 你的图表高度 */
+}
+
+
+.row_title {
+    font-size: 30px;  /* 调整字体大小为更加显眼 */
+    font-weight: bold;  /* 字体加粗 */
+    margin-top: 20px;  /* 上边距 */
+    text-align: center;
+    width: 100%;
+    display: block;
+    padding: 10px 0;
+}
+
+.player-profile {
+    display: flex;
+    align-items: center; /* 垂直居中 */
+    justify-content: center; /* 水平居中 */
+    height: 60vh; /* 让容器的高度充满整个视口高度 */
+    margin: 0 auto; /* 水平居中整个容器 */
+    padding: 20px;
+}
+
+.profile_image {
+    margin-right: 20px;
+}
+
+.profile_details {
+    display: flex;
+    flex-direction: column;
+    margin: 0 50px;
+}
+
+.detail-grid {
+    display: grid;
+    grid-template-columns: auto auto; /* 两列布局，自动调整列宽 */
+    gap: 10px 20px; /* 行间距和列间距 */
+}
+
+.itemin, .itemin-score {
+    font-size: 20px;
+}
+
+.item, .item-score {
+    padding: 5px;
+    font-size: 20px;
+}
+
+.c_row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;  /* 确保内容从行的开始处开始对齐 */
+    align-items: stretch;  /* 使所有项目高度一致 */
+}
+
+.c_span {
+    flex: 0 0 33.33%;  /* 占据行的三分之一宽度 */
+    padding: 10px;  /* 添加内边距增加间隙，可根据需求调整 */
+    box-sizing: border-box;  /* 包括内边距和边框在内的总宽度 */
+    justify-content: center;  /* 垂直居中 */
+    align-items: center;  /* 水平居中 */
+    text-align: center;  /* 确保文本对齐在中心 */
+}
+
+
+

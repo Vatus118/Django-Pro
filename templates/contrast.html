@@ -1,10 +1,666 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contrast details!</title>
+    <link rel="stylesheet" href="{% static 'css/contrast.css' %}">
+    <script src="{% static 'js/' %}echarts.js"></script>
 </head>
 <body>
-    hi!
+    <div class="player-comparison-container">
+        <div class="title">
+            <h2>双方球员数据对比</h2>
+        </div>
+        <div class="compare-wrapper">
+            <h2>球员基础数据</h2>
+            <div class="player-info">
+                <img src="{{ first_player.icon_filename }}" alt="first_player.icon_filename" style="width:120px; height:120px;">
+                <h2>被对比球员：{{ first_player.name }}</h2>
+                <p>中文名：{{ first_player.chinaname }}</p>
+                <p>位置：{{ first_player.position }}</p>
+                <p>球队：{{ first_player.teamname }}</p>
+                <p>身价：{{ first_player.prize }}</p>
+            </div>
+            <div>
+                <img src="{% static 'img/' %}VS logo.png" alt="img" style="width:120px; height:120px;">
+            </div>
+            <div>
+                <img src='{{ second_player.icon_filename }}' alt='second_player.icon_filename' style='width:120px; height:120px;'>
+                <h2>对比球员：{{ second_player.name }}</h2>
+                <p>中文名：{{ second_player.chinaname }}</p>
+                <p>位置：{{ second_player.position }}</p>
+                <p>球队：{{ second_player.teamname }}</p>
+                <p>身价：{{ second_player.prize }}</p>
+            </div>
+        </div>
+        <div id="Charts" class="chart-container">
+            <div id="prize" class="chart-wrapper" style="height: 400px; width: 1500px;"></div>  
+            <script type="text/javascript">
+                var myChart = echarts.init(document.getElementById('prize'));
+                var option = {
+                        title: {
+                            text: '双方身价数据对比',
+                            left: 'center',
+                        },
+                        tooltip: {
+                            trigger: 'axis',
+                            axisPointer: {
+                                type: 'shadow'
+                            }
+                        },
+                        grid: {
+                            left: '3%',
+                            right: '3%',
+                            bottom: '3%',
+                            containLabel: true
+                        },
+                        xAxis: {
+                            type: 'value',
+                            axisLabel: {
+                                formatter: function (val) {
+                                    return Math.abs(val); // 显示值为绝对值
+                                }
+                            }
+                        },
+                        yAxis: {
+                            type: 'category',
+                            axisTick: {
+                                show: false
+                            },
+                            data: ['身价(百万欧)']
+                        },
+                        series: [
+                            {
+                                name: '{{ first_player.name }}',
+                                type: 'bar',
+                                stack: '总量',
+                                label: {
+                                    show: true,
+                                    position: 'inside',
+                                    formatter: function (params) {
+                                        return Math.abs(params.value); // 使用标签格式器返回绝对值
+                                    }
+                                },
+                                data: [-{{ first_player.prize }}], // 使用负值
+                                itemStyle: {
+                                    color: '#c23531'
+                                }
+                            },
+                            {
+                                name: '{{ second_player.name }}',
+                                type: 'bar',
+                                stack: '总量',
+                                label: {
+                                    show: true,
+                                    position: 'inside',
+                                    formatter: function (params) {
+                                        return Math.abs(params.value); // 同样返回绝对值
+                                    }
+                                },
+                                data: [{{ second_player.prize }}], // 使用正值
+                                itemStyle: {
+                                    color: '#2f4554'
+                                }
+                            }
+                        ]
+                    };
+                myChart.setOption(option);
+            </script>
+            <div id="matchtime" class="chart-wrapper" style="height: 400px; width: 1500px;"></div> 
+            <script type="text/javascript">
+                var myChart = echarts.init(document.getElementById('matchtime'));
+                var option = {
+                        title: {
+                            text: '双方总比赛时间数据对比',
+                            left: 'center',
+                        },
+                        tooltip: {
+                            trigger: 'axis',
+                            axisPointer: {
+                                type: 'shadow'
+                            }
+                        },
+                        grid: {
+                            left: '3%',
+                            right: '3%',
+                            bottom: '3%',
+                            containLabel: true
+                        },
+                        xAxis: {
+                            type: 'value',
+                            axisLabel: {
+                                formatter: function (val) {
+                                    return Math.abs(val); // 显示值为绝对值
+                                }
+                            }
+                        },
+                        yAxis: {
+                            type: 'category',
+                            axisTick: {
+                                show: false
+                            },
+                            data: ['比赛时间(min)']
+                        },
+                        series: [
+                            {
+                                name: '{{ first_player.name }}',
+                                type: 'bar',
+                                stack: '总量',
+                                label: {
+                                    show: true,
+                                    position: 'inside',
+                                    formatter: function (params) {
+                                        return Math.abs(params.value); // 使用标签格式器返回绝对值
+                                    }
+                                },
+                                data: [-{{ first.matchtime }}], // 使用负值
+                                itemStyle: {
+                                    color: '#c23531'
+                                }
+                            },
+                            {
+                                name: '{{ second_player.name }}',
+                                type: 'bar',
+                                stack: '总量',
+                                label: {
+                                    show: true,
+                                    position: 'inside',
+                                    formatter: function (params) {
+                                        return Math.abs(params.value); // 同样返回绝对值
+                                    }
+                                },
+                                data: [{{ second.matchtime }}], // 使用正值
+                                itemStyle: {
+                                    color: '#2f4554'
+                                }
+                            }
+                        ]
+                    };
+                myChart.setOption(option);
+            </script>
+        </div>
+        <div class="chart-container">
+            {% if first_player.position == 'Midfielder' %}
+                <div id="Midfielder" class="chart-wrapper" style="height: 400px; width: 1500px;"></div>  
+                <script type="text/javascript">
+                    var myChart = echarts.init(document.getElementById('Midfielder'));
+                    var option = {
+                            title: {
+                                text: '双方各项数据对比(Midfielder标准)',
+                                left: 'center',
+                            },
+                            tooltip: {
+                                trigger: 'axis',
+                                axisPointer: {
+                                    type: 'shadow'
+                                }
+                            },
+                            grid: {
+                                left: '3%',
+                                right: '3%',
+                                bottom: '3%',
+                                containLabel: true
+                            },
+                            xAxis: {
+                                type: 'value',
+                                axisLabel: {
+                                    formatter: function (val) {
+                                        return Math.abs(val); // 显示值为绝对值
+                                    }
+                                }
+                            },
+                            yAxis: {
+                                type: 'category',
+                                axisTick: {
+                                    show: false
+                                },
+                                data: ['犯规', '抢断', '拦截', '有效阻挡', '长传成功', '传中成功', '关键传球', '进球数', '首发']
+                            },
+                            series: [
+                                {
+                                    name: '{{ first_player.name }}',
+                                    type: 'bar',
+                                    stack: '总量',
+                                    label: {
+                                        show: true,
+                                        position: 'left',
+                                        formatter: function (params) {
+                                            return Math.abs(params.value); // 使用标签格式器返回绝对值
+                                        }
+                                    },
+                                    data: [-{{ first.foul }},
+                                            -{{ first.preemption }},
+                                            -{{ first.intercept }},
+                                            -{{ first.valid_prevent }},
+                                            -{{ first.valid_longpass }},
+                                            -{{ first.valid_midpass }},
+                                            -{{ first.key_passball }},
+                                            -{{ first.goal }},
+                                            -{{ first.first }}
+                                    ], // 使用负值
+                                    itemStyle: {
+                                        color: '#c23531'
+                                    }
+                                },
+                                {
+                                    name: '{{ second_player.name }}',
+                                    type: 'bar',
+                                    stack: '总量',
+                                    label: {
+                                        show: true,
+                                        position: 'right',
+                                        formatter: function (params) {
+                                            return Math.abs(params.value); // 同样返回绝对值
+                                        }
+                                    },
+                                    data: [{{ second.foul }},
+                                            {{ second.preemption }},
+                                            {{ second.intercept }},
+                                            {{ second.valid_prevent }},
+                                            {{ second.valid_longpass }},
+                                            {{ second.valid_midpass }},
+                                            {{ second.key_passball }},
+                                            {{ second.goal }},
+                                            {{ second.first }}
+                                    ], // 使用正值
+                                    itemStyle: {
+                                        color: '#2f4554'
+                                    }
+                                }
+                            ]
+                        };
+                    myChart.setOption(option);
+                </script>
+            {% elif first_player.position == 'Forward' %}
+                <div id="Forward" class="chart-wrapper" style="height: 400px; width: 1500px;"></div>  
+                <script type="text/javascript">
+                    var myChart = echarts.init(document.getElementById('Forward'));
+                    var option = {
+                            title: {
+                                text: '双方各项数据对比(Forward标准)',
+                                left: 'center',
+                            },
+                            tooltip: {
+                                trigger: 'axis',
+                                axisPointer: {
+                                    type: 'shadow'
+                                }
+                            },
+                            grid: {
+                                left: '3%',
+                                right: '3%',
+                                bottom: '3%',
+                                containLabel: true
+                            },
+                            xAxis: {
+                                type: 'value',
+                                axisLabel: {
+                                    formatter: function (val) {
+                                        return Math.abs(val); // 显示值为绝对值
+                                    }
+                                }
+                            },
+                            yAxis: {
+                                type: 'category',
+                                axisTick: {
+                                    show: false
+                                },
+                                data: ['犯规', '被侵犯', '解围', '关键传球', '快攻射门', '成功过人', '射正', '射门', '进球数', '首发']
+                            },
+                            series: [
+                                {
+                                    name: '{{ first_player.name }}',
+                                    type: 'bar',
+                                    stack: '总量',
+                                    label: {
+                                        show: true,
+                                        position: 'left',
+                                        formatter: function (params) {
+                                            return Math.abs(params.value); // 使用标签格式器返回绝对值
+                                        }
+                                    },
+                                    data: [-{{ first.foul }},
+                                            -{{ first.violated }},
+                                            -{{ first.breaking }},
+                                            -{{ first.key_passball }},
+                                            -{{ first.quick_atk }},
+                                            -{{ first.valid_passing }},
+                                            -{{ first.target }},
+                                            -{{ first.shooting }},
+                                            -{{ first.goal }},
+                                            -{{ first.first }}
+                                    ], // 使用负值
+                                    itemStyle: {
+                                        color: '#c23531'
+                                    }
+                                },
+                                {
+                                    name: '{{ second_player.name }}',
+                                    type: 'bar',
+                                    stack: '总量',
+                                    label: {
+                                        show: true,
+                                        position: 'right',
+                                        formatter: function (params) {
+                                            return Math.abs(params.value); // 同样返回绝对值
+                                        }
+                                    },
+                                    data: [{{ second.foul }},
+                                            {{ second.violated }},
+                                            {{ second.breaking }},
+                                            {{ second.key_passball }},
+                                            {{ second.quick_atk }},
+                                            {{ second.valid_passing }},
+                                            {{ second.target }},
+                                            {{ second.shooting }},
+                                            {{ second.goal }},
+                                            {{ second.first }}
+                                    ], // 使用正值
+                                    itemStyle: {
+                                        color: '#2f4554'
+                                    }
+                                }
+                            ]
+                        };
+                    myChart.setOption(option);
+                </script>
+            {% elif first_player.position == 'Denfender' %}
+                <div id="Forward" class="chart-wrapper" style="height: 400px; width: 1500px;"></div>  
+                <script type="text/javascript">
+                    var myChart = echarts.init(document.getElementById('Denfender'));
+                    var option = {
+                            title: {
+                                text: '双方各项数据对比(Denfender标准)',
+                                left: 'center',
+                            },
+                            tooltip: {
+                                trigger: 'axis',
+                                axisPointer: {
+                                    type: 'shadow'
+                                }
+                            },
+                            grid: {
+                                left: '3%',
+                                right: '3%',
+                                bottom: '3%',
+                                containLabel: true
+                            },
+                            xAxis: {
+                                type: 'value',
+                                axisLabel: {
+                                    formatter: function (val) {
+                                        return Math.abs(val); // 显示值为绝对值
+                                    }
+                                }
+                            },
+                            yAxis: {
+                                type: 'category',
+                                axisTick: {
+                                    show: false
+                                },
+                                data: ['犯规', '被侵犯', '1对1拼抢成功', '抢断', '拦截', '有效阻挡', '解围', '成功长传', '进球数', '首发']
+                            },
+                            series: [
+                                {
+                                    name: '{{ first_player.name }}',
+                                    type: 'bar',
+                                    stack: '总量',
+                                    label: {
+                                        show: true,
+                                        position: 'left',
+                                        formatter: function (params) {
+                                            return Math.abs(params.value); // 使用标签格式器返回绝对值
+                                        }
+                                    },
+                                    data: [-{{ first.foul }},
+                                            -{{ first.violated }},
+                                            -{{ first.valid_onebyone }},
+                                            -{{ first.preemption }},
+                                            -{{ first.intercept }},
+                                            -{{ first.valid_prevent }},
+                                            -{{ first.breaking }},
+                                            -{{ first.valid_longpass }},
+                                            -{{ first.goal }},
+                                            -{{ first.first }}
+                                    ], // 使用负值
+                                    itemStyle: {
+                                        color: '#c23531'
+                                    }
+                                },
+                                {
+                                    name: '{{ second_player.name }}',
+                                    type: 'bar',
+                                    stack: '总量',
+                                    label: {
+                                        show: true,
+                                        position: 'right',
+                                        formatter: function (params) {
+                                            return Math.abs(params.value); // 同样返回绝对值
+                                        }
+                                    },
+                                    data: [{{ second.foul }},
+                                            {{ second.violated }},
+                                            {{ second.valid_onebyone }},
+                                            {{ second.preemption }},
+                                            {{ second.intercept }},
+                                            {{ second.valid_prevent }},
+                                            {{ second.breaking }},
+                                            {{ second.valid_longpass }},
+                                            {{ second.goal }},
+                                            {{ second.first }}
+                                    ],
+                                    itemStyle: {
+                                        color: '#2f4554'
+                                    }
+                                }
+                            ]
+                        };
+                    myChart.setOption(option);
+                </script>
+            {% elif first_player.position == 'Goalkeeper' %}
+                <div id="Goalkeeper" class="chart-wrapper" style="height: 400px; width: 1500px;"></div>  
+                <script type="text/javascript">
+                    var myChart = echarts.init(document.getElementById('Goalkeeper'));
+                    var option = {
+                            title: {
+                                text: '双方各项数据对比(Goalkeeper标准)',
+                                left: 'center',
+                            },
+                            tooltip: {
+                                trigger: 'axis',
+                                axisPointer: {
+                                    type: 'shadow'
+                                }
+                            },
+                            grid: {
+                                left: '3%',
+                                right: '3%',
+                                bottom: '3%',
+                                containLabel: true
+                            },
+                            xAxis: {
+                                type: 'value',
+                                axisLabel: {
+                                    formatter: function (val) {
+                                        return Math.abs(val); // 显示值为绝对值
+                                    }
+                                }
+                            },
+                            yAxis: {
+                                type: 'category',
+                                axisTick: {
+                                    show: false
+                                },
+                                data: ['解围', '高空出击', '拳击球', '守门员出击成功', '守门员出击', '1对1拼抢成功', '成功长传', '首发']
+                            },
+                            series: [
+                                {
+                                    name: '{{ first_player.name }}',
+                                    type: 'bar',
+                                    stack: '总量',
+                                    label: {
+                                        show: true,
+                                        position: 'left',
+                                        formatter: function (params) {
+                                            return Math.abs(params.value); // 使用标签格式器返回绝对值
+                                        }
+                                    },
+                                    data: [-{{ first.breaking }},
+                                            -{{ first.high_atk}},
+                                            -{{ first.handball }},
+                                            -{{ first.valid_atk }},
+                                            -{{ first.keeper_atk }},
+                                            -{{ first.valid_onebyone }},
+                                            -{{ first.valid_longpass }},
+                                            -{{ first.first }},
+                                    ], // 使用负值
+                                    itemStyle: {
+                                        color: '#c23531'
+                                    }
+                                },
+                                {
+                                    name: '{{ second_player.name }}',
+                                    type: 'bar',
+                                    stack: '总量',
+                                    label: {
+                                        show: true,
+                                        position: 'right',
+                                        formatter: function (params) {
+                                            return Math.abs(params.value); // 同样返回绝对值
+                                        }
+                                    },
+                                    data: [{{ second.breaking }},
+                                            {{ second.high_atk}},
+                                            {{ second.handball }},
+                                            {{ second.valid_atk }},
+                                            {{ second.keeper_atk }},
+                                            {{ second.valid_onebyone }},
+                                            {{ second.valid_longpass }},
+                                            {{ second.first }},
+                                    ], // 使用负值
+                                    itemStyle: {
+                                        color: '#2f4554'
+                                    }
+                                }
+                            ]
+                        };
+                    myChart.setOption(option);
+                </script>
+            {% endif %}
+        </div>
+        <div class="chart-container">
+            {% if first_player.position == 'Goalkeeper' %}
+                <div  id="radar-keeper" class="chart-wrapper" style="height: 400px; width: 1500px;"></div>  
+                <script type="text/javascript">
+                    var myChart = echarts.init(document.getElementById('radar-keeper'));
+                    var option = {
+                          title: {
+                            text: '双方综合数据对比(Goalkeeper)',
+                            top: 5,  
+                            left: 50  
+                          },
+                          legend: {
+                            data: ['{{ first_player.name }}', '{{ second_player.name }}'],
+                            top: 20,
+                            right: 150  
+                          },
+                          radar: {
+                            indicator: [
+                              { name: '身体素质', max: 100 },
+                              { name: '守门能力', max: 100 },
+                              { name: '拼抢能力', max: 100 },
+                              { name: '传球能力', max: 100 },
+                              { name: '防守能力', max: 100 },
+                              { name: '组织纪律', max: 100 }
+                            ]
+                          },
+                          series: [
+                            {
+                              name: 'vs',
+                              type: 'radar',
+                              data: [
+                                {
+                                  value: [{{ first_score.physics }}, 
+                                      1.5*(0.15*{{ first.valid_onebyone }}+0.4*{{ first.valid_atk }}+0.1*{{ first.keeper_atk }}+0.2*{{ first.high_atk }}+0.1*{{ first.handball }}+0.05*{{ first.breaking }}),
+                                      2*(0.3*{{ first.onebyone }}+0.7*{{ first.valid_onebyone }}), 
+                                      {{ first_score.passball }}, 
+                                      {{ first_score.defensive }}, 
+                                      {{ first_score.discipline }}],
+                                  name: '{{ first_player.name }}'
+                                },
+                                {
+                                  value: [{{ second_score.physics }}, 
+                                      1.5*(0.15*{{ second.valid_onebyone }}+0.4*{{ second.valid_atk }}+0.1*{{ second.keeper_atk }}+0.2*{{ second.high_atk }}+0.1*{{ second.handball }}+0.05*{{ second.breaking }}),
+                                      2*(0.3*{{ second.onebyone }}+0.7*{{ second.valid_onebyone }}), 
+                                      {{ second_score.passball }}, 
+                                      {{ second_score.defensive }}, 
+                                      {{ second_score.discipline }}],
+                                  name: '{{ second_player.name }}'
+                                }
+                              ]
+                            }
+                          ]
+                        };
+                    myChart.setOption(option);
+                </script>
+                {% else %}
+                <div  id="radar-else" class="chart-wrapper" style="height: 400px; width: 1500px;"></div>  
+                <script type="text/javascript">
+                    var myChart = echarts.init(document.getElementById('radar-else'));
+                    var option = {
+                          title: {
+                            text: '双方综合数据对比',
+                            top: 5,  
+                            left: 'center'  
+                          },
+                          legend: {
+                            data: ['{{ first_player.name }}', '{{ second_player.name }}'],
+                            top: 20,
+                            right: 150  
+                          },
+                          radar: {
+                            indicator: [
+                              { name: '身体素质', max: 100 },
+                              { name: '射门能力', max: 100 },
+                              { name: '盘带能力', max: 100 },
+                              { name: '传球能力', max: 100 },
+                              { name: '防守能力', max: 100 },
+                              { name: '组织纪律', max: 100 }
+                            ]
+                          },
+                          series: [
+                            {
+                              name: 'vs',
+                              type: 'radar',
+                              data: [
+                                {
+                                  value: [{{ first_score.physics }},
+                                      {{ first_score.shoot }},
+                                      {{ first_score.dribble }},
+                                      {{ first_score.passball }}, 
+                                      {{ first_score.defensive }}, 
+                                      {{ first_score.discipline }}],
+                                  name: '{{ first_player.name }}'
+                                },
+                                {
+                                  value: [{{ second_score.physics }},
+                                      {{ second_score.shoot }},
+                                      {{ second_score.dribble }},
+                                      {{ second_score.passball }}, 
+                                      {{ second_score.defensive }}, 
+                                      {{ second_score.discipline }}],
+                                  name: '{{ second_player.name }}'
+                                }
+                              ]
+                            }
+                          ]
+                        };
+                    myChart.setOption(option);
+                </script>
+            {% endif %}
+        </div>
+    </div>   
 </body>
 </html>

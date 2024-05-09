@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="searchview" content="width=device-width, initial-scale=1.0">
+    <title>See the results!</title>
+    <link rel="stylesheet" href="{% static 'css/search.css' %}">
+</head>
+<body>
+    <div class="team-wrapper">
+        <h2>球队搜索结果</h2>
+        <table>
+            <div class="table_title">
+                <tr>
+                    <th>排名</th>
+                    <th>图标</th>
+                    <th>球队</th>
+                    <th>积分</th>
+                </tr>
+            </div>
+            {% for team in teams %}
+            <tr>
+                <td>{{ team.teamid }}</td>
+                <td><img src="{{ team.icon_filename }}" alt="{{ team.icon_filename }}" style="width:50px; height:50px;"></td>
+                <td><a href="{% url 'team_detail' team.teamid %}">{{ team.name }}</a></td>
+                <td>{{ team.points }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="player-wrapper">
+        <h2>球员搜索结果</h2>
+        <table>
+            <div class="table_title">
+                <tr>
+                    <th>id</th>
+                    <th>头像</th>
+                    <th>球员名</th>
+                    <th>身价</th>
+                </tr>
+            </div>
+            {% for player in players %}
+            <tr>
+                <td>{{ player.playerid }}</td>
+                <td><img src="{{ player.icon_filename }}" alt="{{ team.icon_filename }}" style="width:50px; height:50px;"></td>
+                <td><a href="{% url 'player_detail' player.playerid %}">{{ player.name }}</a></td>
+                <td>{{ player.prize }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>

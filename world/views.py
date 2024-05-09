@@ -5,13 +5,10 @@ from django.contrib.auth.hashers import make_password
 from django.shortcuts import render, redirect
 from world.authentication import EmailBackend
 from . import authentication
-from .models import Standing, Team, Player, Match, Statistic
+from .models import Standing, Team, Player, Match, Statistic, Details, Score
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
-
-# excel数据读取
-excel_data1 = pd.read_excel('数据话英超.xls')
 
 
 # Create your views here.
@@ -83,8 +80,23 @@ def get_standing(request):
         search_data = request.POST.get('search')
         if search_data:
             search_filter['name__icontains'] = search_data
-            teams = Standing.objects.filter(**search_filter).order_by('-points')
-            return render(request, "home.html", {"teams": teams})
+        teams = Standing.objects.filter(**search_filter).order_by('-points')
+        return render(request, "home.html", {"teams": teams})
+    return HttpResponse("不支持的请求方法", status=405)
+
+
+def get_search(request):
+    query = request.POST.get('search', '')
+    if query:
+        teams = Standing.objects.filter(name__icontains=query)  # 根据需要修改过滤器
+        players = Player.objects.filter(name__icontains=query)
+        return render(request, 'search.html', {
+            'teams': teams,
+            'players': players
+        })
+    else:
+        # 处理空查询或需要时重定向
+        return render(request, 'search.html', {'error': '没有提供搜索查询'})
 
 
 def get_team_details(request, team_id):
@@ -105,16 +117,59 @@ def get_team_details(request, team_id):
 
 def get_player_details(request, player_id):
     player_data = Player.objects.get(playerid=player_id)
-    behavior_data = Statistic.objects.get(playerid=player_id)
-    return render(request, "player.html", {"player": player_data, "behavior": behavior_data})
+    behavior_data = Statistic.objects.get(player_id=player_id)
+    name = player_data.name
+    score = Score.objects.get(name=name)
+    return render(request, "player.html", {
+        "player": player_data,
+        "behavior": behavior_data,
+        "score": score
+    })
+
+
+def get_player_select(request, first_player_id):
+    player_data = Player.objects.get(playerid=first_player_id)
+    player_position = player_data.position
+    players = Player.objects.filter(position=player_position).exclude(playerid=first_player_id)
+    return render(request, "select.html", {
+        "first_player_id": first_player_id,
+        "players": players
+    })
 
 
 def get_match_details(request, match_id):
-    match_data = Statistic.objects.select_related('Match').filter(matchid=match_id).values(
-        'playerid', 'behavior', 'behaviorcount', 'matchid'
-    )
-    return render(request, "match.html", {"match_data": match_data})
+    match_details = Details.objects.get(matchid=match_id)
+    hostteam = match_details.hostteam
+    guestteam = match_details.guestteam
+    hostteamname = Team.objects.get(shortname=hostteam).name
+    guestteamname = Team.objects.get(shortname=guestteam).name
+    hostfile = Standing.objects.get(name=hostteamname)
+    guestfile = Standing.objects.get(name=guestteamname)
+    host_players = Player.objects.filter(teamname=hostteamname)
+    guest_players = Player.objects.filter(teamname=guestteamname)
+    status = Match.objects.get(matchid=match_id)
+    return render(request, "match.html", {
+        "match_details": match_details,
+        "hostfile": hostfile,
+        "guestfile": guestfile,
+        "host_players": host_players,
+        "guest_players": guest_players,
+        "status": status
+    })
 
 
-def get_contrast_details(request, player_id):
-    return render(request, "contrast.html")
+def get_contrast_details(request, first_player_id, second_player_id):
+    first_player = Player.objects.get(playerid=first_player_id)
+    second_player = Player.objects.get(playerid=second_player_id)
+    first = Statistic.objects.get(player_id=first_player_id)
+    second = Statistic.objects.get(player_id=second_player_id)
+    first_score = Score.objects.get(name=first_player.name)
+    second_score = Score.objects.get(name=second_player.name)
+    return render(request, "contrast.html", {
+        "first_player": first_player,
+        "second_player": second_player,
+        "first": first,
+        "second": second,
+        "first_score": first_score,
+        "second_score": second_score
+    })
